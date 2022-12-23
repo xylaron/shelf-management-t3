@@ -19,4 +19,9 @@ This is a Shelf Management Application developed on the T3 Stack.
 
 - 22/12/2022
   - Clean up the T3 stack boilerplate code
-  - Added temporary navbar to navigate between pages
+  - Added temporary `Navbar` component to navigate between pages
+- 23/12/2022
+  - Created temporary schema for `Product` table for testing
+  - Created tRPC router `productsRouter` for doing database queries from `Products` table in database
+    - Added test function `getAll` to get all data from `Products` table
+  - Fixed some styling for `Navbar`
