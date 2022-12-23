@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Navbar: React.FC = () => {
   return (
-    <div className="fixed z-20 min-w-full bg-purple-900 px-6 py-4 shadow-xl">
+    <div className="fixed z-20 min-w-full bg-purple-900 px-3 py-4 shadow-xl">
       <div className="text-2xl font-bold text-white">
         <ul className="flex">
           <li>

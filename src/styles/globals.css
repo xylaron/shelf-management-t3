@@ -7,5 +7,5 @@ body {
 }
 
 .navbar-item {
-  @apply pr-6 text-center hover:text-white/80 active:text-white/60;
+  @apply px-6 text-center hover:text-white/80 active:text-white/60;
 }
