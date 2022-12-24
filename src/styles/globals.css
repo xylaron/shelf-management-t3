@@ -6,6 +6,29 @@ body {
   @apply bg-gradient-to-b from-[#2e026d] to-[#15162c];
 }
 
-.navbar-item {
-  @apply px-6 text-center hover:text-white/80 active:text-white/60;
+/* Global table styles */
+table {
+  /* table full size with padding */
+  @apply w-full;
+  @apply border-collapse;
+  @apply border border-gray-200;
+  @apply text-left;
+  @apply text-sm;
+  @apply text-white;
+  @apply font-medium;
+}
+td {
+  @apply py-2;
+  @apply px-4;
+  @apply border border-gray-200;
+}
+tr {
+  @apply hover:bg-purple-900;
+}
+th {
+  @apply text-white;
+  @apply font-medium;
+  @apply py-2;
+  @apply px-4;
+  @apply border border-gray-200;
 }
