@@ -13,7 +13,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <div className="pb-[64px]">
+      <div className="">
         <Navbar />
       </div>
       <Component {...pageProps} />
