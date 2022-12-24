@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import ExampleQuery from "../components/example/ExampleQuery";
-import ExampleAuth from "../components/example/ExampleAuth";
 
 const Home: NextPage = () => {
   return (
@@ -15,7 +14,6 @@ const Home: NextPage = () => {
             <span className="text-purple-500">Home</span> Page
           </h1>
           <ExampleQuery />
-          <ExampleAuth />
         </div>
       </main>
     </>
