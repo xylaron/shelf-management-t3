@@ -7,6 +7,7 @@ This is a Shelf Management Application developed on the T3 Stack.
 - [Prisma](https://prisma.io)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
+- [Faker-js](https://fakerjs.dev/)
 - [Documentation for T3 stack](https://create.t3.gg/)
 
 **Important Commands:**
@@ -30,6 +31,17 @@ This is a Shelf Management Application developed on the T3 Stack.
   - Fixed some styling for `Navbar`
 
 - [24/12/2022]
+
   - Created `Table` component in `Products` page to display the data in a table form instead of the list form
   - Added global default styles for tables in `global.css`
   - Fixed some styling for multiple pages/components
+
+- [27/12/2022]
+
+  - Removed package and boilerplate code for `next-auth`
+  - Added package `@faker-js/faker` for random data generation
+  - Added `generateData.ts` for doing data generation for testing
+  - Added `Transactions` page to display the generated transactions in console
+  - Added `types` files for setting up interfaces for objects in the codebase
+  - Added `baseUrl: "./src"` in `tsconfig.json` for easier imports
+    - Fixed all files in `src` with nested dots (e.g. ../../../) to new import format
