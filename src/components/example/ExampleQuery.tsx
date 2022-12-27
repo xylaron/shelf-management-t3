@@ -1,7 +1,7 @@
 import { trpc } from "../../utils/trpc";
 
 const ExampleQuery: React.FC = () => {
-  const hello: any = trpc.example.hello.useQuery({ text: "from tRPC" });
+  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
   return (
     <div className="flex flex-col items-center gap-2">
       <p className="text-lg text-white">
