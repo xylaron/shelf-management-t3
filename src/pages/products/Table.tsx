@@ -1,4 +1,4 @@
-import { trpc } from "../../utils/trpc";
+import { trpc } from "utils/trpc";
 
 const ProductTable = () => {
   const products = trpc.products.getAll.useQuery();

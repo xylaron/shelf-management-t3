@@ -1,4 +1,4 @@
-import { trpc } from "../../utils/trpc";
+import { trpc } from "utils/trpc";
 
 const ExampleQuery: React.FC = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
