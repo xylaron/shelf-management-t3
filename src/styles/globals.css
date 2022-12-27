@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global body styles for text and background */
 body {
   @apply bg-gradient-to-b from-[#2e026d] to-[#15162c];
+  @apply text-white;
 }
 
 /* Global table styles */
 table {
-  /* table full size with padding */
   @apply w-full;
   @apply border-collapse;
   @apply border border-gray-200;
