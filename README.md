@@ -1,7 +1,5 @@
 # Shelf Management Application
 
-Project Deployment Link: https://xylaron.com
-
 This is a Shelf Management Application developed on the T3 Stack.
 
 - [Next.js](https://nextjs.org)
