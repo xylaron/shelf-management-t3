@@ -1,5 +1,6 @@
 # Shelf Management Application
-Project Deployment Link: https://shelf-management-t3.vercel.app/
+
+Project Deployment Link: https://xylaron.com
 
 This is a Shelf Management Application developed on the T3 Stack.
 
