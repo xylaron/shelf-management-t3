@@ -7,7 +7,7 @@ const Experimental: NextPage = () => {
   const [nameList, setNameList] = useState<string[]>([]);
 
   useEffect(() => {
-    const names = generateNames();
+    const names = generateNames(20);
     setNameList(names);
   }, []);
 
