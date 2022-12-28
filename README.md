@@ -1,6 +1,6 @@
 # Shelf Management Application
 
-This is a Shelf Management Application developed on the T3 Stack.
+This is a Shelf Management Application developed on the T3 Stack
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
