@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import Table from "./Table";
 import { useEffect, useState } from "react";
 import { Transaction } from "types";
 import { generateTransactions } from "utils/generateData";
@@ -8,11 +9,9 @@ const Transactions: NextPage = () => {
   const [transactionsList, setTransactionsList] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    const transactions = generateTransactions();
+    const transactions = generateTransactions(50);
     setTransactionsList(transactions);
   }, []);
-
-  const checkTransactions = () => console.log(transactionsList);
 
   return (
     <>
@@ -26,9 +25,7 @@ const Transactions: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col gap-4 pt-8 pb-16 text-2xl font-bold">
-          <button type="button" onClick={checkTransactions}>
-            Check Transactions
-          </button>
+          <Table transactions={transactionsList} />
         </div>
       </main>
     </>

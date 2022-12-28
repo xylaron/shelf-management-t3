@@ -1,20 +1,26 @@
-import { trpc } from "utils/trpc";
+interface dbProduct {
+  id: number;
+  name: string;
+  price: number;
+  amount: number;
+}
 
-const ProductTable = () => {
-  const products = trpc.products.getAll.useQuery();
-  const productList = products.data || [];
+interface ProductTableProps {
+  productList: dbProduct[];
+}
 
+const Table: React.FC<ProductTableProps> = ({ productList }) => {
   if (productList.length === 0) {
     return <div className="text-xl text-white">No Products Found</div>;
   }
 
-  const table = productList.map((product) => {
+  const table = productList.map(({ id, name, price, amount }) => {
     return (
-      <tr key={product.id}>
-        <td>{product.id}</td>
-        <td>{product.name}</td>
-        <td>${product.price}</td>
-        <td>{product.amount}</td>
+      <tr key={id}>
+        <td>{id}</td>
+        <td>{name}</td>
+        <td>${price}</td>
+        <td>{amount}</td>
       </tr>
     );
   });
@@ -32,4 +38,4 @@ const ProductTable = () => {
   );
 };
 
-export default ProductTable;
+export default Table;

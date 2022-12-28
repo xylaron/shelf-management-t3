@@ -1,8 +1,11 @@
 import { type NextPage } from "next";
+import { trpc } from "utils/trpc";
 import Head from "next/head";
 import Table from "./Table";
 
 const Products: NextPage = () => {
+  const products = trpc.products.getAll.useQuery();
+  const productList = products.data || [];
   return (
     <>
       <Head>
@@ -14,7 +17,7 @@ const Products: NextPage = () => {
             <span className="text-purple-500">Products</span> Page
           </h1>
           <div className="flex flex-col items-center justify-center gap-12 ">
-            <Table />
+            <Table productList={productList} />
           </div>
         </div>
       </main>
