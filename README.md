@@ -56,6 +56,7 @@ This is a Shelf Management Application developed on the T3 Stack
 - [30/12/2022]
 
   - Added `seed.ts` to reset and seed the database with sample data
+  - Added command `npm run db-seed` to run script to seed the database
   - Removed example models, changed `Product` model and added `Transactions` model in `schema.prisma`
   - Removed `Product` interface from `types.ts` as Prisma defines the interface directly from the schema
   - Moved `Table` components for `Products` and `Transactions` page to the `components` folder to prevent Next.js prerender error
