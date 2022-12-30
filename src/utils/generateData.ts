@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Transaction } from "types";
+import { type Transactions } from "types";
 import { sampleProducts } from "utils/sampleProducts";
 
 export const generateNames = (dataNum: number) => {
@@ -16,11 +16,11 @@ export const generateNames = (dataNum: number) => {
 };
 
 export const generateTransactions = (dataNum: number) => {
-  const transactions = new Array<Transaction>();
+  const transactions = new Array<Transactions>();
   const openingTime = new Date(2020, 0, 1, 9, 0, 0); // 9:00 AM
   const closingTime = new Date(2020, 0, 1, 22, 0, 0); // 10:00 PM
   while (transactions.length < dataNum) {
-    const transaction: Transaction = {} as Transaction;
+    const transaction: Transactions = {} as Transactions;
     transaction.id = transactions.length + 1;
     transaction.product =
       sampleProducts[faker.datatype.number({ max: sampleProducts.length - 1 })]

@@ -1,12 +1,12 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Table from "./Table";
+import Table from "components/transactions/Table";
 import { useEffect, useState } from "react";
-import { Transaction } from "types";
+import { type Transactions } from "types";
 import { generateTransactions } from "utils/generateData";
 
 const Transactions: NextPage = () => {
-  const [transactionsList, setTransactionsList] = useState<Transaction[]>([]);
+  const [transactionsList, setTransactionsList] = useState<Transactions[]>([]);
 
   useEffect(() => {
     const transactions = generateTransactions(50);
@@ -25,7 +25,7 @@ const Transactions: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col gap-4 pt-8 pb-16 text-2xl font-bold">
-          <Table transactions={transactionsList} />
+          <Table transactionsList={transactionsList} />
         </div>
       </main>
     </>

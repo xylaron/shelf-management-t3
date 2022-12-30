@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { trpc } from "utils/trpc";
 import Head from "next/head";
-import Table from "./Table";
+import Table from "components/products/Table";
 
 const Products: NextPage = () => {
   const products = trpc.products.getAll.useQuery();
