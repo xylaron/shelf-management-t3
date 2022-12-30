@@ -1,15 +1,11 @@
-import { Transaction } from "types";
-
-interface TransactionTableProps {
-  transactions: Transaction[];
-}
-
-const Table: React.FC<TransactionTableProps> = ({ transactions }) => {
-  if (transactions.length === 0) {
+import { type Transactions } from "types";
+//prettier-ignore
+const Table: React.FC<{ transactionsList: Transactions[] }> = ({ transactionsList}) => {
+  if (transactionsList.length === 0) {
     return <div className="text-xl text-white">No Transactions Found</div>;
   }
 
-  const table = transactions.map(({ id, product, quantity, time }) => {
+  const table = transactionsList.map(({ id, product, quantity, time }) => {
     return (
       <tr key={id}>
         <td>{id}</td>
