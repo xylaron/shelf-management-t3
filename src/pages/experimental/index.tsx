@@ -1,15 +1,10 @@
+import { faker } from "@faker-js/faker";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
-import { generateNames } from "utils/generateData";
+import { useState } from "react";
 
 const Experimental: NextPage = () => {
-  const [nameList, setNameList] = useState<string[]>([]);
-
-  useEffect(() => {
-    const names = generateNames(20);
-    setNameList(names);
-  }, []);
+  const [number, setNumber] = useState<number>(727);
 
   return (
     <>
@@ -23,11 +18,13 @@ const Experimental: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col gap-4 pt-8 pb-16">
-          {nameList.map((name, index) => (
-            <div key={index} className="text-white">
-              {index + 1}. {name}
-            </div>
-          ))}
+          <button
+            className="rounded-lg border border-white bg-purple-900 p-2 font-bold hover:bg-purple-900/80 active:scale-95 active:bg-purple-900/60"
+            onClick={() => setNumber(faker.datatype.number(1000))}
+          >
+            Generate Number
+          </button>
+          <div>{number === 727 ? "WYSI" : number}</div>
         </div>
       </main>
     </>
