@@ -1,6 +1,2 @@
-export interface Transactions {
-  id: number;
-  product: string;
-  quantity: number;
-  time: Date;
-}
+//types or interfaces are defined here
+export {};
