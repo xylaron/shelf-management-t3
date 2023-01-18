@@ -62,3 +62,11 @@ This is a Shelf Management Application developed on the T3 Stack
   - Moved `Table` components for `Products` and `Transactions` page to the `components` folder to prevent Next.js prerender error
   - Changed interface names to prevent type/interface confusions and amount of sample products
   - Removed some unused example files and routes from boilerplate code
+
+- [18/1/2022]
+
+  - Changed the database provider from `sqlite` to `postgresql` in `schema.prisma`
+  - Added `Transactions` router to query data from `Transactions` table
+  - Changed queries and added transactions seeding in `seed.ts`
+  - Added `tests.ts` to be used to test key functions in the project
+  - Changed `Transactions` page to query data from the `Transactions` router
