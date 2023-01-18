@@ -1,17 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Table from "components/transactions/Table";
-import { useEffect, useState } from "react";
-import { type Transactions } from "types";
-import { generateTransactions } from "utils/generateData";
+import { trpc } from "utils/trpc";
 
 const Transactions: NextPage = () => {
-  const [transactionsList, setTransactionsList] = useState<Transactions[]>([]);
-
-  useEffect(() => {
-    const transactions = generateTransactions(50);
-    setTransactionsList(transactions);
-  }, []);
+  const transactions = trpc.transactions.getAll.useQuery();
+  const transactionsList = transactions.data || [];
 
   return (
     <>
