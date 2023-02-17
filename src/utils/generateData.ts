@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { type Transactions } from "@prisma/client";
 import { sampleProducts } from "utils/sampleProducts";
 
+//to be removed later
 export const generateNames = (dataNum: number) => {
   //initialize variables/constraints/array
   const names = new Array<string>();
@@ -18,7 +19,7 @@ export const generateNames = (dataNum: number) => {
   return names;
 };
 
-export const generateTransactions = (dataNum: number) => {
+export const generateTransactions_OLD = (dataNum: number) => {
   //initialize variables/constraints/array
   const transactions = new Array<Transactions>();
 
