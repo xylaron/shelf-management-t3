@@ -15,19 +15,30 @@ datasource db {
 }
 
 model Transactions {
-  id        Int      @id @default(autoincrement())
-  quantity  Int 
-  time      DateTime @default(now())
-  product   Products @relation(fields: [productId], references: [id])
-  productId Int
+  id                    Int                     @id @default(autoincrement())
+  total_price           Float
+  time                  DateTime                @default(now())
+  Transactions_Products Transactions_Products[]
 }
 
 model Products {
-  id           Int            @id @default(autoincrement())
-  name         String         @unique
-  type         String  
-  price        Float 
-  size         Float
-  Transactions Transactions[]
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  @unique
+  width                 Float
+  height                Float
+  depth                 Float
+  weight                Float
+  price                 Float
+  Transactions_Products Transactions_Products[]
 }
 
+model Transactions_Products {
+  transactionId Int
+  productId     Int
+  quantity      Int
+  total_price   Float
+  Transactions  Transactions @relation(fields: [transactionId], references: [id])
+  Products      Products     @relation(fields: [productId], references: [id])
+
+  @@id([transactionId, productId])
+}
