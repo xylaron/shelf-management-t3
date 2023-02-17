@@ -27,7 +27,7 @@ model Products {
   width                 Float
   height                Float
   depth                 Float
-  weight                Float
+  volume                Float
   price                 Float
   Transactions_Products Transactions_Products[]
 }
