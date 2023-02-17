@@ -1,19 +1,75 @@
 export interface SampleProduct {
   name: string;
   type: string;
-  size: number;
+  width: number;
+  height: number;
+  depth: number;
+  volume: number;
   price: number;
 }
-//prettier-ignore
-export const sampleProducts: SampleProduct[] = [
-  { name: 'Bonaqua', type: 'Bottled Water', size: 500, price: 8.00},
-  { name: 'Coca-Cola', type: 'Soft Drink', size: 350, price: 7.00},
-  { name: 'Red Bull', type: 'Energy Drink', size: 500, price: 15.00},
-  { name: 'Minute Maid Orange Juice', type: 'Fruit Juice', size: 420, price: 7.00},
-  { name: 'Lipton Iced Tea', type: 'Iced Tea', size: 400, price: 6.50},
-  { name: 'Lucozade', type: 'Sports Drink', size: 600, price: 15.00},
-  { name: 'Sprite', type: 'Soft Drink', size: 350, price: 7.00},
-  { name: 'Starbucks Coffee', type: 'Coffee', size: 350, price: 25.00},
-  { name: 'Lipton Tea', type: 'Tea', size: 200, price: 6.00},
-  { name: 'Budweiser', type: 'Beer', size: 350, price: 9.50},
+
+export const sampleProducts = [
+  {
+    name: "Bonaqua",
+    type: "Bottled Water",
+    width: 6.35,
+    height: 20.3,
+    depth: 6.35,
+    volume: 500,
+    price: 8.0,
+  },
+  {
+    name: "Coca-Cola",
+    type: "Soft Drink",
+    width: 6.6,
+    height: 12.27,
+    depth: 6.6,
+    volume: 350,
+    price: 7.0,
+  },
+  {
+    name: "Red Bull",
+    type: "Energy Drink",
+    width: 5.72,
+    height: 15.56,
+    depth: 5.72,
+    volume: 350,
+    price: 15.0,
+  },
+  {
+    name: "Minute Maid Orange Juice",
+    type: "Fruit Juice",
+    width: 6.35,
+    height: 22.86,
+    depth: 6.35,
+    volume: 420,
+    price: 7.0,
+  },
+  {
+    name: "Lucozade",
+    type: "Sports Drink",
+    width: 6.35,
+    height: 20.3,
+    depth: 6.35,
+    volume: 500,
+    price: 15.0,
+  },
+  {
+    name: "Sprite",
+    type: "Soft Drink",
+    width: 6.6,
+    height: 12.27,
+    depth: 6.6,
+    volume: 350,
+    price: 7.0,
+  },
+  {
+    name: "Budweiser",
+    type: "Beer",
+    width: 6.6,
+    height: 12.27,
+    depth: 6.6,
+    volume: 350,
+    price: 9.5,
+  },
 ];
