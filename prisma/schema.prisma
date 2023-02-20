@@ -24,6 +24,7 @@ model Transactions {
 model Products {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
+  type                  String
   width                 Float
   height                Float
   depth                 Float
