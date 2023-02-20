@@ -1,6 +1,15 @@
-import { generateTransactions } from "utils/generateData";
+import {
+  generateSingleTransaction,
+  generateTransactions,
+} from "utils/generateData";
 
 export const testTransactions = () => {
-  const transactions = generateTransactions(500);
-  console.log("Generated Transactions:", transactions);
+  const singleTransactionsOutput = generateSingleTransaction(10);
+  const transactionsOutput = generateTransactions(singleTransactionsOutput);
+  console.log(
+    "Generated Single Transactions:",
+    singleTransactionsOutput.singleTransactions
+  );
+  console.log("\n");
+  console.log("Generated Transactions:", transactionsOutput);
 };
