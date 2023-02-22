@@ -25,9 +25,13 @@ export const generateNames = (dataNum: number) => {
 export const generateSingleTransaction = (totalTransactions: number) => {
   const singleTransactions = new Array<SingleTransaction>();
 
-  for (let i = 0; i < totalTransactions; i++) {
-    const boughtProductsWeightPool = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3];
+  const boughtProductsWeightPool = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3];
+  const productAmountWeightPool = [
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5,
+  ];
+  const productIdWeightPool = getProductIdWeightPool();
 
+  for (let i = 0; i < totalTransactions; i++) {
     const amountOfBoughtProducts =
       boughtProductsWeightPool[
         faker.datatype.number({
@@ -40,16 +44,21 @@ export const generateSingleTransaction = (totalTransactions: number) => {
       const singleTransaction = {} as SingleTransaction;
 
       singleTransaction.transactionId = i + 1;
-      singleTransaction.productId = faker.datatype.number({
-        min: 1,
-        max: sampleProducts.length - 1,
-      });
-      const productAmountWeightPool = [
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5,
-      ];
+
+      singleTransaction.productId =
+        productIdWeightPool[
+          faker.datatype.number({
+            min: 1,
+            max: productIdWeightPool.length - 1,
+          })
+        ] || 1;
+
       singleTransaction.quantity =
         productAmountWeightPool[
-          faker.datatype.number({ min: 1, max: productAmountWeightPool.length })
+          faker.datatype.number({
+            min: 1,
+            max: productAmountWeightPool.length - 1,
+          })
         ] || 1;
       singleTransaction.total_price =
         singleTransaction.quantity *
@@ -86,7 +95,7 @@ export const generateTransactions = (singleTransactionsOutput: {
   const closingHour = new Date(0, 0, 0, 23, 0, 0, 0);
 
   const startDate = new Date(2023, 0, 1);
-  const endDate = new Date(2023, 0, 2);
+  const endDate = new Date(2023, 1, 1);
 
   for (let i = 0; i < totalTransactions; i++) {
     const transaction = {} as Transactions;
@@ -125,4 +134,20 @@ export const generateTransactions = (singleTransactionsOutput: {
   }
 
   return transactions;
+};
+
+const getProductIdWeightPool = () => {
+  const weightPool = new Array<number>();
+
+  const weights = [18, 14, 12, 9, 6, 4, 2];
+
+  for (let i = 0; i < sampleProducts.length; i++) {
+    // @ts-ignore - to be fixed
+    for (let j = 0; j < weights[i]; j++) {
+      weightPool.push(i + 1);
+    }
+  }
+
+  console.log("Weight Pool: ", weightPool);
+  return weightPool;
 };
