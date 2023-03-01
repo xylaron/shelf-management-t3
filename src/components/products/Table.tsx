@@ -5,7 +5,21 @@ const Table: React.FC<{ productList: Products[] }> = ({ productList }) => {
     return <div className="text-xl text-white">No Products Found</div>;
   }
 
-  const table = productList.map(({ id, name, price, type, size }) => {
+  /*
+  model Products {
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  @unique
+  type                  String
+  width                 Float
+  height                Float
+  depth                 Float
+  volume                Float
+  price                 Float
+  Transactions_Products Transactions_Products[]
+}
+*/
+
+  const table = productList.map(({ id, name, type, width }) => {
     console.log("ID: ", id);
     console.log("Name: ", name);
     console.log("Price: ", price);

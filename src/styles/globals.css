@@ -33,3 +33,14 @@ th {
   @apply px-4;
   @apply border border-gray-200;
 }
+
+/* Remove default button arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

@@ -1,16 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url      = env("DATABASE_URL")
 }
 
@@ -24,12 +17,12 @@ model Transactions {
 model Products {
   id                    Int                     @id @default(autoincrement())
   name                  String                  @unique
-  type                  String
   width                 Float
   height                Float
   depth                 Float
-  volume                Float
   price                 Float
+  volume                Float
+  type                  String
   Transactions_Products Transactions_Products[]
 }
 
@@ -38,8 +31,8 @@ model Transactions_Products {
   productId     Int
   quantity      Int
   total_price   Float
-  Transactions  Transactions @relation(fields: [transactionId], references: [id])
   Products      Products     @relation(fields: [productId], references: [id])
+  Transactions  Transactions @relation(fields: [transactionId], references: [id])
 
   @@id([transactionId, productId])
 }
