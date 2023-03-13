@@ -19,19 +19,16 @@ const Table: React.FC<{ productList: Products[] }> = ({ productList }) => {
 }
 */
 
-  const table = productList.map(({ id, name, type, width }) => {
-    console.log("ID: ", id);
-    console.log("Name: ", name);
-    console.log("Price: ", price);
-    console.log("Type: ", type);
-    console.log("Size: ", size);
+  const table = productList.map((product) => {
     return (
-      <tr key={id}>
-        <td>{id}</td>
-        <td>{name}</td>
-        <td>{type}</td>
-        <td>${price.toFixed(2)}</td>
-        <td>{size} mL</td>
+      <tr key={product.id}>
+        <td>{product.id}</td>
+        <td>{product.name}</td>
+        <td>{product.type}</td>
+        <td>{product.price}</td>
+        <td>
+          {product.width}cm x {product.height}cm x {product.depth}cm
+        </td>
       </tr>
     );
   });
@@ -44,7 +41,7 @@ const Table: React.FC<{ productList: Products[] }> = ({ productList }) => {
           <th>Name</th>
           <th>Type</th>
           <th>Price</th>
-          <th>Size</th>
+          <th>Dimensions</th>
         </tr>
       </thead>
       <tbody>{table}</tbody>

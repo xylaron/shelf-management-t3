@@ -36,3 +36,12 @@ model Transactions_Products {
 
   @@id([transactionId, productId])
 }
+
+model Shelves {
+  id              Int    @id @default(autoincrement())
+  name            String
+  width           Float
+  height          Float
+  depth           Float
+  weight_capacity Float
+}

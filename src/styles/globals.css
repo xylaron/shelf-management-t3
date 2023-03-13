@@ -24,9 +24,10 @@ td {
   @apply border border-gray-200;
 }
 tr {
-  @apply hover:bg-purple-900;
+  @apply transition-colors hover:bg-purple-900;
 }
 th {
+  @apply bg-black/20;
   @apply text-white;
   @apply font-medium;
   @apply py-2;

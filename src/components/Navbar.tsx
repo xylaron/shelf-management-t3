@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
           <li>
             <Link
               href="/"
-              className="px-3 text-center hover:text-white/80  active:text-white/60"
+              className="px-3 text-center transition-colors  hover:text-white/80 active:text-white/60"
             >
               Home
             </Link>
@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
           <li>
             <Link
               href="/products"
-              className="px-3 text-center hover:text-white/80  active:text-white/60"
+              className="px-3 text-center transition-colors  hover:text-white/80 active:text-white/60"
             >
               Products
             </Link>
@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
           <li>
             <Link
               href="/experimental"
-              className="px-3 text-center hover:text-white/80  active:text-white/60"
+              className="px-3 text-center transition-colors  hover:text-white/80 active:text-white/60"
             >
               Experimental
             </Link>
@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
           <li>
             <Link
               href="/transactions"
-              className="px-3 text-center hover:text-white/80  active:text-white/60"
+              className="px-3 text-center transition-colors  hover:text-white/80 active:text-white/60"
             >
               Transactions
             </Link>

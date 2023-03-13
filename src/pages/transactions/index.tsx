@@ -9,9 +9,10 @@ const Transactions: NextPage = () => {
   const [pageSize, setPageSize] = useState(10);
 
   const transactions = trpc.transactions.getTransactionsByPage.useQuery({
-    selectedPage: selectedPage - 1,
+    selectedPage: selectedPage - 1 || 0,
     pageSize: pageSize,
   });
+
   const transactionsList = transactions.data || [];
 
   return (
