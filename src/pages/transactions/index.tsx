@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Table from "components/transactions/Table";
 import { trpc } from "utils/trpc";
+import { type Transactions } from "@prisma/client";
 import { useState } from "react";
 
 const Transactions: NextPage = () => {
@@ -57,6 +57,37 @@ const Transactions: NextPage = () => {
         </div>
       </main>
     </>
+  );
+};
+
+const Table: React.FC<{ transactionsList: Transactions[] }> = ({
+  transactionsList,
+}) => {
+  if (transactionsList.length === 0) {
+    return <div className="text-xl text-white">No Transactions Found</div>;
+  }
+
+  const table = transactionsList.map(({ id, total_price, time }) => {
+    return (
+      <tr key={id}>
+        <td>{id}</td>
+        <td>{total_price}</td>
+        <td>{time.toString()}</td>
+      </tr>
+    );
+  });
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Total Price</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>{table}</tbody>
+    </table>
   );
 };
 

@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import ExampleQuery from "../components/example/ExampleQuery";
+import ExampleQuery from "components/ExampleQuery";
 
 const Home: NextPage = () => {
   return (
