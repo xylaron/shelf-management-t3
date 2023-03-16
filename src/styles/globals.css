@@ -4,13 +4,17 @@
 
 /* Global body styles for text and background */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   @apply bg-neutral-900;
   @apply text-white;
 }
 
 span {
   @apply text-purple-600;
+}
+
+main {
+  @apply min-h-[calc(100vh-52px)];
 }
 
 /* Global table styles */

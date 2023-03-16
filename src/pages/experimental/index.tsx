@@ -11,7 +11,7 @@ const Experimental: NextPage = () => {
       <Head>
         <title>Experimental - Shelf Management App</title>
       </Head>
-      <main className="flex min-h-screen flex-col items-center">
+      <main className="flex flex-col items-center">
         <div className="container flex flex-col items-center gap-12 px-4 pt-16 pb-8">
           <h1 className="tracking text-6xl font-extrabold text-white">
             <span>Experimental</span> Page

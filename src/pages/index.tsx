@@ -8,7 +8,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Home - Shelf Management App</title>
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <main className="flex flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="tracking text-6xl font-extrabold text-white">
             <span>Home</span> Page
