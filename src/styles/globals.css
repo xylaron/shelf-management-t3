@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* Global body styles for text and background */
 body {
-  @apply bg-gradient-to-b from-[#2e026d] to-[#15162c];
+  font-family: 'Roboto', sans-serif;
+  @apply bg-neutral-900;
   @apply text-white;
+}
+
+span {
+  @apply text-purple-600;
 }
 
 /* Global table styles */

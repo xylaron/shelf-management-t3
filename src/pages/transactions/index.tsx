@@ -23,7 +23,7 @@ const Transactions: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center">
         <div className="container flex flex-col items-center gap-12 px-4 pt-16 pb-8">
           <h1 className="tracking text-6xl font-extrabold text-white">
-            <span className="text-purple-500">Transactions</span> Page
+            <span>Transactions</span> Page
           </h1>
         </div>
         <div>
