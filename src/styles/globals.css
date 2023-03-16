@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Global body styles for text and background */
 body {
   font-family: 'Roboto', sans-serif;
