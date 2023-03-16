@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import {
-  type Transactions,
+import type {
+  Transactions,
   Transactions_Products as SingleTransaction,
 } from "@prisma/client";
 import { sampleProducts } from "utils/sampleProducts";
@@ -60,10 +60,10 @@ export const generateSingleTransaction = (totalTransactions: number) => {
             max: productAmountWeightPool.length - 1,
           })
         ] || 1;
+
       singleTransaction.total_price =
         singleTransaction.quantity *
-        // @ts-ignore - to be fixed
-        sampleProducts[singleTransaction.productId - 1].price;
+        sampleProducts[singleTransaction.productId - 1]!.price;
 
       singleTransactions.push(singleTransaction);
     }
@@ -142,8 +142,7 @@ const getProductIdWeightPool = () => {
   const weights = [18, 14, 12, 9, 6, 4, 2];
 
   for (let i = 0; i < sampleProducts.length; i++) {
-    // @ts-ignore - to be fixed
-    for (let j = 0; j < weights[i]; j++) {
+    for (let j = 0; j < weights[i]!; j++) {
       weightPool.push(i + 1);
     }
   }
