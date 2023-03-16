@@ -12,8 +12,8 @@ const Experimental: NextPage = () => {
         <title>Experimental - Shelf Management App</title>
       </Head>
       <main className="flex flex-col items-center">
-        <div className="container flex flex-col items-center gap-12 px-4 pt-16 pb-8">
-          <h1 className="tracking text-6xl font-extrabold text-white">
+        <div className="container flex flex-col items-center gap-12 px-4 py-16">
+          <h1 className="tracking text-6xl font-extrabold">
             <span>Experimental</span> Page
           </h1>
         </div>
