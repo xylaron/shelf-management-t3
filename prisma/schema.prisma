@@ -38,10 +38,11 @@ model Transactions_Products {
 }
 
 model Shelves {
-  id              Int    @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   name            String
   width           Float
   height          Float
   depth           Float
   weight_capacity Float
+  created_at      DateTime @default(now())
 }

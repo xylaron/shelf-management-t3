@@ -31,10 +31,10 @@ const Navbar: React.FC = () => {
           </li>
           <li>
             <Link
-              href="/create-shelf"
+              href="/shelves"
               className="px-3 text-center transition-colors  hover:text-white/80 active:text-white/60"
             >
-              Create Shelf
+              Shelves
             </Link>
           </li>
         </ul>
