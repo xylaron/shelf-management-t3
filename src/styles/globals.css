@@ -21,7 +21,7 @@ main {
 table {
   @apply w-full;
   @apply border-collapse;
-  @apply border border-gray-200;
+  @apply border border-gray-500;
   @apply text-left;
   @apply text-sm;
   @apply text-white;
@@ -30,21 +30,21 @@ table {
 td {
   @apply py-2;
   @apply px-4;
-  @apply border border-gray-200;
+  @apply border border-gray-500;
 }
 tr {
-  @apply transition-colors hover:bg-purple-900;
+  @apply transition-colors hover:bg-purple-900/50;
 }
 th {
-  @apply bg-black/20;
+  @apply bg-black/40;
   @apply text-white;
   @apply font-medium;
   @apply py-2;
   @apply px-4;
-  @apply border border-gray-200;
+  @apply border border-gray-500;
 }
 
-/* Remove default button arrows */
+/* Remove default button arrows for number input*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
