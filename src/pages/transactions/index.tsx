@@ -52,8 +52,12 @@ const Transactions: NextPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-4 pt-8 pb-16 text-2xl font-bold">
-          <Table transactionsList={transactionsList} />
+        <div className="flex flex-col gap-4 pt-8 pb-16 text-2xl">
+          {transactions.status !== "success" ? (
+            <div className="text-xl">Loading...</div>
+          ) : (
+            <Table transactionsList={transactionsList} />
+          )}
         </div>
       </main>
     </>
@@ -64,7 +68,7 @@ const Table: React.FC<{ transactionsList: Transactions[] }> = ({
   transactionsList,
 }) => {
   if (transactionsList.length === 0) {
-    return <div className="text-xl">No Transactions Found</div>;
+    return <div className="text-xl">No Products Found</div>;
   }
 
   const table = transactionsList.map(({ id, total_price, time }) => {
@@ -72,7 +76,7 @@ const Table: React.FC<{ transactionsList: Transactions[] }> = ({
       <tr key={id}>
         <td>{id}</td>
         <td>{total_price}</td>
-        <td>{time.toString()}</td>
+        <td>{time.toUTCString()}</td>
       </tr>
     );
   });

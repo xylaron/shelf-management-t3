@@ -18,7 +18,11 @@ const Products: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-12 py-2">
-          <Table productList={productList} />
+          {products.status !== "success" ? (
+            <div className="text-xl">Loading...</div>
+          ) : (
+            <Table productList={productList} />
+          )}
         </div>
       </main>
     </>
