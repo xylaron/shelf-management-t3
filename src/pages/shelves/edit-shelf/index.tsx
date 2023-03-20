@@ -1,9 +1,11 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import router from "next/router";
+import { useRouter } from "next/router";
 import { trpc } from "utils/trpc";
 
-const CreateShelf: NextPage = () => {
+const EditShelf: NextPage = () => {
+  const router = useRouter();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -21,7 +23,8 @@ const CreateShelf: NextPage = () => {
     const depth = Number(target.depth.value);
     const weight_capacity = Number(target.weight_capacity.value);
 
-    createShelf.mutate({
+    editShelf.mutate({
+      id: Number(router.query.id),
       name: name,
       width: width,
       height: height,
@@ -30,7 +33,7 @@ const CreateShelf: NextPage = () => {
     });
   };
 
-  const createShelf = trpc.shelves.create.useMutation({
+  const editShelf = trpc.shelves.edit.useMutation({
     onSuccess: () => {
       router.push("/shelves");
     },
@@ -51,12 +54,12 @@ const CreateShelf: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Create New Shelf - Shelf Management App</title>
+        <title>Edit Shelf - Shelf Management App</title>
       </Head>
       <main className="flex flex-col items-center">
         <div className="container flex flex-col items-center gap-12 px-4 py-16">
           <h1 className="tracking text-6xl font-extrabold">
-            Create New <span>Shelf</span>
+            Edit <span>Shelf</span>
           </h1>
         </div>
         <div className="flex flex-row items-center justify-center py-2">
@@ -74,6 +77,7 @@ const CreateShelf: NextPage = () => {
                 type="text"
                 placeholder="Name"
                 maxLength={20}
+                defaultValue={router.query.name}
                 required
               />
             </div>
@@ -88,6 +92,7 @@ const CreateShelf: NextPage = () => {
                 placeholder="Weight Capacity"
                 onKeyPress={preventNonNumberInput}
                 onWheel={preventScroll}
+                defaultValue={router.query.weight_capacity}
                 required
               />
             </div>
@@ -103,6 +108,7 @@ const CreateShelf: NextPage = () => {
                 placeholder="Width"
                 onKeyPress={preventNonNumberInput}
                 onWheel={preventScroll}
+                defaultValue={router.query.width}
                 required
               />
             </div>
@@ -117,6 +123,7 @@ const CreateShelf: NextPage = () => {
                 placeholder="Height"
                 onKeyPress={preventNonNumberInput}
                 onWheel={preventScroll}
+                defaultValue={router.query.height}
                 required
               />
             </div>
@@ -131,6 +138,7 @@ const CreateShelf: NextPage = () => {
                 placeholder="Depth"
                 onKeyPress={preventNonNumberInput}
                 onWheel={preventScroll}
+                defaultValue={router.query.depth}
                 required
               />
             </div>
@@ -139,7 +147,7 @@ const CreateShelf: NextPage = () => {
                 className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 active:bg-green-800"
                 type="submit"
               >
-                Create
+                Save
               </button>
             </div>
             <div>
@@ -157,4 +165,4 @@ const CreateShelf: NextPage = () => {
   );
 };
 
-export default CreateShelf;
+export default EditShelf;

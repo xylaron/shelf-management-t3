@@ -58,13 +58,11 @@ const Table: React.FC<{ productsList: Products[] }> = ({ productsList }) => {
   return (
     <table>
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Price</th>
-          <th>Dimensions</th>
-        </tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Dimensions</th>
       </thead>
       <tbody>{table}</tbody>
     </table>

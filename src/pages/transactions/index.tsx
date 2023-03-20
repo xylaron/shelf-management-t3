@@ -49,7 +49,7 @@ const Transactions: NextPage = () => {
             <div className="flex flex-col gap-2">
               <label>Page Size</label>
               <select
-                className="h-6 w-16 px-2 text-black"
+                className="h-8 w-16 rounded bg-neutral-700 px-2 py-1"
                 value={pageSize}
                 onChange={(e) => setPageSize(parseInt(e.target.value))}
               >
@@ -62,7 +62,7 @@ const Transactions: NextPage = () => {
             <div className="flex flex-col gap-2">
               <label>Page</label>
               <input
-                className="h-6 w-16 px-2 text-black"
+                className="h-8 w-16 rounded bg-neutral-700 px-3 py-1"
                 type="number"
                 value={selectedPage}
                 onWheel={preventScroll}
@@ -101,7 +101,11 @@ const Table: React.FC<{ transactionsList: Transactions[] }> = ({
       <tr key={id}>
         <td>{id}</td>
         <td>{total_price}</td>
-        <td>{time.toUTCString()}</td>
+        <td>
+          {time.toLocaleString("en-UK", {
+            timeZone: "Asia/Hong_Kong",
+          })}
+        </td>
       </tr>
     );
   });
@@ -109,11 +113,9 @@ const Table: React.FC<{ transactionsList: Transactions[] }> = ({
   return (
     <table>
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Total Price</th>
-          <th>Time</th>
-        </tr>
+        <th>ID</th>
+        <th>Total Price</th>
+        <th>Time</th>
       </thead>
       <tbody>{table}</tbody>
     </table>

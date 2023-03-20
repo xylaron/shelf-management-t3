@@ -39,4 +39,29 @@ export const shelvesRouter = router({
         },
       });
     }),
+  edit: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        name: z.string(),
+        width: z.number(),
+        height: z.number(),
+        depth: z.number(),
+        weight_capacity: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.shelves.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          name: input.name,
+          width: input.width,
+          height: input.height,
+          depth: input.depth,
+          weight_capacity: input.weight_capacity,
+        },
+      });
+    }),
 });
