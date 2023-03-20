@@ -2,10 +2,15 @@ import { type NextPage } from "next";
 import { trpc } from "utils/trpc";
 import { type Products } from "@prisma/client";
 import Head from "next/head";
+import { useState } from "react";
 
 const Products: NextPage = () => {
-  const products = trpc.products.getAll.useQuery();
-  const productList = products.data || [];
+  const [productsList, setProductsList] = useState<Products[]>([]);
+  const products = trpc.products.getAll.useQuery(undefined, {
+    onSuccess: (data) => {
+      setProductsList(data ?? []);
+    },
+  });
   return (
     <>
       <Head>
@@ -23,7 +28,7 @@ const Products: NextPage = () => {
           ) : products.status == "error" ? (
             <div className="text-xl">Error: {products.error.message}</div>
           ) : (
-            <Table productList={productList} />
+            <Table productsList={productsList} />
           )}
         </div>
       </main>
@@ -31,12 +36,12 @@ const Products: NextPage = () => {
   );
 };
 
-const Table: React.FC<{ productList: Products[] }> = ({ productList }) => {
-  if (productList.length === 0) {
+const Table: React.FC<{ productsList: Products[] }> = ({ productsList }) => {
+  if (productsList.length === 0) {
     return <div className="text-xl">No Products Found</div>;
   }
 
-  const table = productList.map((product) => {
+  const table = productsList.map((product) => {
     return (
       <tr key={product.id}>
         <td>{product.id}</td>

@@ -30,7 +30,7 @@ const CreateShelf: NextPage = () => {
     });
   };
 
-  const createShelf = trpc.shelves.createNew.useMutation({
+  const createShelf = trpc.shelves.create.useMutation({
     onSuccess: () => {
       router.push("/shelves");
     },

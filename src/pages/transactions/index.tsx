@@ -2,18 +2,24 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "utils/trpc";
 import { type Transactions } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Transactions: NextPage = () => {
   const [selectedPage, setSelectedPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [transactionsList, setTransactionsList] = useState<Transactions[]>([]);
 
-  const transactions = trpc.transactions.getTransactionsByPage.useQuery({
-    selectedPage: selectedPage - 1 || 0,
-    pageSize: pageSize,
-  });
-
-  const transactionsList = transactions.data || [];
+  const transactions = trpc.transactions.getTransactionsByPage.useQuery(
+    {
+      selectedPage: selectedPage - 1 || 0,
+      pageSize: pageSize,
+    },
+    {
+      onSuccess: (data) => {
+        setTransactionsList(data ?? []);
+      },
+    }
+  );
 
   const preventNonNumberInput = (
     event: React.KeyboardEvent<HTMLInputElement>

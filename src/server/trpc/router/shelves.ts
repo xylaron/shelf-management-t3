@@ -5,7 +5,7 @@ export const shelvesRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
     return await ctx.prisma.shelves.findMany();
   }),
-  createNew: publicProcedure
+  create: publicProcedure
     .input(
       z.object({
         name: z.string(),
@@ -23,6 +23,19 @@ export const shelvesRouter = router({
           height: input.height,
           depth: input.depth,
           weight_capacity: input.weight_capacity,
+        },
+      });
+    }),
+  delete: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.shelves.delete({
+        where: {
+          id: input.id,
         },
       });
     }),

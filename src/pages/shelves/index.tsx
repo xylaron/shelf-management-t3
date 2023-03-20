@@ -6,10 +6,29 @@ import { trpc } from "utils/trpc";
 import { useState } from "react";
 
 const Shelves: NextPage = () => {
-  const shelves = trpc.shelves.getAll.useQuery();
-  const shelvesList = shelves.data || [];
+  const shelves = trpc.shelves.getAll.useQuery(undefined, {
+    onSuccess: (data) => {
+      setShelvesList(data ?? []);
+    },
+  });
+
   const [selectedPage, setSelectedPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [shelvesList, setShelvesList] = useState<Shelves[]>([]);
+
+  const deleteShelf = trpc.shelves.delete.useMutation({
+    onSuccess: () => {
+      void shelves.refetch();
+    },
+  });
+
+  const handleDelete = (id: number) => {
+    if (confirm("Are you sure you want to delete this shelf?")) {
+      deleteShelf.mutate({
+        id: id,
+      });
+    }
+  };
 
   return (
     <>
@@ -24,7 +43,7 @@ const Shelves: NextPage = () => {
         </div>
         <div className="flex flex-col items-center justify-center gap-6 py-2">
           <button
-            className="flex flex-col gap-2 rounded bg-purple-700 py-2 px-4 font-bold transition-colors hover:bg-purple-800 focus:outline-none active:bg-purple-900"
+            className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 focus:outline-none active:bg-green-800"
             type="submit"
             onClick={() => {
               router.push("/shelves/create-shelf");
@@ -60,9 +79,12 @@ const Shelves: NextPage = () => {
             {shelves.status == "loading" ? (
               <div className="text-xl">Loading...</div>
             ) : shelves.status == "error" ? (
-              <div className="text-xl">Error: {shelves.error.message}</div>)
-            : (
-              <Table shelvesList={shelvesList}></Table>
+              <div className="text-xl">Error: {shelves.error.message}</div>
+            ) : (
+              <Table
+                shelvesList={shelvesList}
+                handleDelete={handleDelete}
+              ></Table>
             )}
           </div>
         </div>
@@ -71,7 +93,10 @@ const Shelves: NextPage = () => {
   );
 };
 
-const Table: React.FC<{ shelvesList: Shelves[] }> = ({ shelvesList }) => {
+const Table: React.FC<{
+  shelvesList: Shelves[];
+  handleDelete(id: number): void;
+}> = ({ shelvesList, handleDelete }) => {
   if (shelvesList.length === 0) {
     return <div className="text-xl">No Shelves Found</div>;
   }
@@ -79,13 +104,23 @@ const Table: React.FC<{ shelvesList: Shelves[] }> = ({ shelvesList }) => {
   const table = shelvesList.map((shelves) => {
     return (
       <tr key={shelves.id}>
-        <td>{shelves.id}</td>
         <td>{shelves.name}</td>
         <td>
           {shelves.width}cm x {shelves.height}cm x {shelves.depth}cm
         </td>
         <td>{shelves.weight_capacity}kg</td>
         <td>{shelves.created_at.toUTCString()}</td>
+        <td>
+          <button className="mr-1 rounded bg-blue-600 py-2 px-4 font-bold transition-colors hover:bg-blue-700 focus:outline-none active:bg-blue-800">
+            Edit
+          </button>
+          <button
+            className="ml-1 rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 focus:outline-none active:bg-red-800"
+            onClick={() => handleDelete(shelves.id)}
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     );
   });
@@ -94,11 +129,11 @@ const Table: React.FC<{ shelvesList: Shelves[] }> = ({ shelvesList }) => {
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>Dimensions</th>
           <th>Weight Capacity</th>
           <th>Created At</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>{table}</tbody>
