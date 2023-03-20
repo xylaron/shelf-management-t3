@@ -57,9 +57,11 @@ const Shelves: NextPage = () => {
             </div>
           </div>
           <div>
-            {shelves.status !== "success" ? (
+            {shelves.status == "loading" ? (
               <div className="text-xl">Loading...</div>
-            ) : (
+            ) : shelves.status == "error" ? (
+              <div className="text-xl">Error: {shelves.error.message}</div>)
+            : (
               <Table shelvesList={shelvesList}></Table>
             )}
           </div>

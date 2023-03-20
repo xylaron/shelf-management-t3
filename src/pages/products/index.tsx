@@ -18,8 +18,10 @@ const Products: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-12 py-2">
-          {products.status !== "success" ? (
+          {products.status == "loading" ? (
             <div className="text-xl">Loading...</div>
+          ) : products.status == "error" ? (
+            <div className="text-xl">Error: {products.error.message}</div>
           ) : (
             <Table productList={productList} />
           )}
@@ -33,20 +35,6 @@ const Table: React.FC<{ productList: Products[] }> = ({ productList }) => {
   if (productList.length === 0) {
     return <div className="text-xl">No Products Found</div>;
   }
-
-  /*
-  model Products {
-  id                    Int                     @id @default(autoincrement())
-  name                  String                  @unique
-  type                  String
-  width                 Float
-  height                Float
-  depth                 Float
-  volume                Float
-  price                 Float
-  Transactions_Products Transactions_Products[]
-  }
-  */
 
   const table = productList.map((product) => {
     return (

@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "utils/trpc";
 import { type Transactions } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Transactions: NextPage = () => {
   const [selectedPage, setSelectedPage] = useState(1);
@@ -14,6 +14,18 @@ const Transactions: NextPage = () => {
   });
 
   const transactionsList = transactions.data || [];
+
+  const preventNonNumberInput = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.code === "Minus" || event.code === "KeyE") {
+      event.preventDefault();
+    }
+  };
+
+  const preventScroll = (event: React.WheelEvent<HTMLInputElement>) => {
+    event.currentTarget.blur();
+  };
 
   return (
     <>
@@ -47,14 +59,21 @@ const Transactions: NextPage = () => {
                 className="h-6 w-16 px-2 text-black"
                 type="number"
                 value={selectedPage}
-                onChange={(e) => setSelectedPage(parseInt(e.target.value))}
+                onWheel={preventScroll}
+                onKeyPress={preventNonNumberInput}
+                onChange={(e) => {
+                  if (e.target.value == "0") e.target.value = "1";
+                  setSelectedPage(parseInt(e.target.value));
+                }}
               ></input>
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4 pt-8 pb-16 text-2xl">
-          {transactions.status !== "success" ? (
+          {transactions.status == "loading" ? (
             <div className="text-xl">Loading...</div>
+          ) : transactions.status == "error" ? (
+            <div className="text-xl">Error: {transactions.error.message}</div>
           ) : (
             <Table transactionsList={transactionsList} />
           )}
