@@ -95,9 +95,9 @@ const Shelves: NextPage = () => {
             </div>
           </div> */}
           <div className="">
-            {shelves.status == "loading" ? (
+            {shelves.isLoading ? (
               <div className="text-xl">Loading...</div>
-            ) : shelves.status == "error" ? (
+            ) : shelves.isError ? (
               <div className="text-xl">Error: {shelves.error.message}</div>
             ) : (
               <Table

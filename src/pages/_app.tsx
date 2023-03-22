@@ -3,8 +3,12 @@ import { trpc } from "utils/trpc";
 import Head from "next/head";
 import "styles/globals.css";
 import Navbar from "components/Navbar";
+import { useState } from "react";
+import Login from "components/Login";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <>
       <Head>
@@ -13,8 +17,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
-      <Component {...pageProps} />
+      {isAuthenticated ? (
+        <div>
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
+      ) : (
+        <Login setIsAuthenticated={setIsAuthenticated} />
+      )}
     </>
   );
 };

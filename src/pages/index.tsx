@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="tracking text-6xl font-extrabold text-white">
+          <h1 className="text-6xl font-extrabold text-white">
             <span>Home</span> Page
           </h1>
           <ExampleQuery />

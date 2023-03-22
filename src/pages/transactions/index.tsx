@@ -76,9 +76,9 @@ const Transactions: NextPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4 pt-8 pb-16 text-2xl">
-          {transactions.status == "loading" ? (
+          {transactions.isLoading ? (
             <div className="text-xl">Loading...</div>
-          ) : transactions.status == "error" ? (
+          ) : transactions.isError ? (
             <div className="text-xl">Error: {transactions.error.message}</div>
           ) : (
             <Table transactionsList={transactionsList} />
