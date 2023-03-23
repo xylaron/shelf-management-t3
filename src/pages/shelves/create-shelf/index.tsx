@@ -74,6 +74,7 @@ const CreateShelf: NextPage = () => {
                 type="text"
                 placeholder="Name"
                 maxLength={20}
+                disabled={createShelf.isLoading}
                 required
               />
             </div>
@@ -86,8 +87,9 @@ const CreateShelf: NextPage = () => {
                 id="weight_capacity"
                 type="number"
                 placeholder="Weight Capacity"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
+                disabled={createShelf.isLoading}
                 required
               />
             </div>
@@ -101,8 +103,9 @@ const CreateShelf: NextPage = () => {
                 id="width"
                 type="number"
                 placeholder="Width"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
+                disabled={createShelf.isLoading}
                 required
               />
             </div>
@@ -115,8 +118,9 @@ const CreateShelf: NextPage = () => {
                 id="height"
                 type="number"
                 placeholder="Height"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
+                disabled={createShelf.isLoading}
                 required
               />
             </div>
@@ -129,23 +133,26 @@ const CreateShelf: NextPage = () => {
                 id="depth"
                 type="number"
                 placeholder="Depth"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
+                disabled={createShelf.isLoading}
                 required
               />
             </div>
             <div>
               <button
-                className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 active:bg-green-800"
+                className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 active:bg-green-800 disabled:bg-green-800"
                 type="submit"
+                disabled={createShelf.isLoading}
               >
                 Create
               </button>
             </div>
             <div>
               <button
-                className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 active:bg-red-800"
+                className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 active:bg-red-800 disabled:bg-red-800"
                 onClick={() => router.push("/shelves")}
+                disabled={createShelf.isLoading}
               >
                 Cancel
               </button>

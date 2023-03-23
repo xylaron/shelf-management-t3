@@ -78,6 +78,7 @@ const EditShelf: NextPage = () => {
                 placeholder="Name"
                 maxLength={20}
                 defaultValue={router.query.name}
+                disabled={editShelf.isLoading}
                 required
               />
             </div>
@@ -90,9 +91,10 @@ const EditShelf: NextPage = () => {
                 id="weight_capacity"
                 type="number"
                 placeholder="Weight Capacity"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 defaultValue={router.query.weight_capacity}
+                disabled={editShelf.isLoading}
                 required
               />
             </div>
@@ -106,9 +108,10 @@ const EditShelf: NextPage = () => {
                 id="width"
                 type="number"
                 placeholder="Width"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 defaultValue={router.query.width}
+                disabled={editShelf.isLoading}
                 required
               />
             </div>
@@ -121,9 +124,10 @@ const EditShelf: NextPage = () => {
                 id="height"
                 type="number"
                 placeholder="Height"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 defaultValue={router.query.height}
+                disabled={editShelf.isLoading}
                 required
               />
             </div>
@@ -136,24 +140,27 @@ const EditShelf: NextPage = () => {
                 id="depth"
                 type="number"
                 placeholder="Depth"
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 defaultValue={router.query.depth}
+                disabled={editShelf.isLoading}
                 required
               />
             </div>
             <div>
               <button
-                className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 active:bg-green-800"
+                className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 active:bg-green-800 disabled:bg-green-800"
                 type="submit"
+                disabled={editShelf.isLoading}
               >
                 Save
               </button>
             </div>
             <div>
               <button
-                className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 active:bg-red-800"
+                className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 active:bg-red-800 disabled:bg-red-800"
                 onClick={() => router.push("/shelves")}
+                disabled={editShelf.isLoading}
               >
                 Cancel
               </button>

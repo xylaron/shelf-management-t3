@@ -66,7 +66,7 @@ const Transactions: NextPage = () => {
                 type="number"
                 value={selectedPage}
                 onWheel={preventScroll}
-                onKeyPress={preventNonNumberInput}
+                onKeyDown={preventNonNumberInput}
                 onChange={(e) => {
                   if (e.target.value == "0") e.target.value = "1";
                   setSelectedPage(parseInt(e.target.value));

@@ -8,7 +8,6 @@ import { useState } from "react";
 const Shelves: NextPage = () => {
   const shelves = trpc.shelves.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      data.sort((a, b) => a.id - b.id);
       setShelvesList(data ?? []);
     },
   });
@@ -136,6 +135,11 @@ const Table: React.FC<{
           })}
         </td>
         <td>
+          {shelves.updated_at.toLocaleString("en-UK", {
+            timeZone: "Asia/Hong_Kong",
+          })}
+        </td>
+        <td>
           <button
             className="mr-1 rounded bg-blue-600 py-2 px-4 font-bold transition-colors hover:bg-blue-700 focus:outline-none active:bg-blue-800"
             onClick={() => handleEdit(shelvesList, shelves.id)}
@@ -160,6 +164,7 @@ const Table: React.FC<{
         <th>Dimensions</th>
         <th>Weight Capacity</th>
         <th>Created At</th>
+        <th>Last Updated</th>
         <th>Actions</th>
       </thead>
       <tbody>{table}</tbody>

@@ -3,7 +3,13 @@ import { z } from "zod";
 
 export const transactionsRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.transactions.findMany();
+    return await ctx.prisma.transactions.findMany({
+      orderBy: [
+        {
+          id: "asc",
+        },
+      ],
+    });
   }),
 
   getTransactionsByPage: publicProcedure

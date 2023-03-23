@@ -45,6 +45,7 @@ model Shelves {
   depth           Float
   weight_capacity Float
   created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
 }
 
 model Users {

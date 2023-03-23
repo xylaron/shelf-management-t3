@@ -3,7 +3,13 @@ import { z } from "zod";
 
 export const shelvesRouter = router({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.shelves.findMany();
+    return await ctx.prisma.shelves.findMany({
+      orderBy: [
+        {
+          created_at: "asc",
+        },
+      ],
+    });
   }),
   create: publicProcedure
     .input(
