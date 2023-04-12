@@ -11,8 +11,8 @@ async function main() {
   // Delete Reset the autoincrement counter using raw (differs from db solutions)
   // This method is for Postgresql ONLY
   // await prisma.$queryRaw`TRUNCATE Products RESTART IDENTITY;`;
-  // await prisma.$queryRaw`TRUNCATE Transactions RESTART IDENTITY;`;
-  // await prisma.$queryRaw`TRUNCATE Transactions_Products RESTART IDENTITY;`;
+  await prisma.transactions_Products.deleteMany();
+  await prisma.transactions.deleteMany();
 
   // for (const product of sampleProducts) {
   //   const item = await prisma.products.create({
@@ -21,7 +21,7 @@ async function main() {
   //   console.log("Added to Products Table: ", item);
   // }
 
-  const singleTransactionsOutput = generateSingleTransaction(5723);
+  const singleTransactionsOutput = generateSingleTransaction(4400);
   const transactionsOutput = generateTransactions(singleTransactionsOutput);
 
   for (const transaction of transactionsOutput) {
