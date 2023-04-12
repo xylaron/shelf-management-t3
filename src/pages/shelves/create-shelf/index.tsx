@@ -1,26 +1,21 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import router from "next/router";
+import { useRouter } from "next/router";
 import { trpc } from "utils/trpc";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const CreateShelf: NextPage = () => {
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [depth, setDepth] = useState(0);
+  const [weight_capacity, setWeightCapacity] = useState(0);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const target = event.target as typeof event.target & {
-      name: { value: string };
-      width: { value: number };
-      height: { value: number };
-      depth: { value: number };
-      weight_capacity: { value: number };
-    };
-
-    const name = target.name.value;
-    const width = Number(target.width.value);
-    const height = Number(target.height.value);
-    const depth = Number(target.depth.value);
-    const weight_capacity = Number(target.weight_capacity.value);
-
     createShelf.mutate({
       name: name,
       width: width,
@@ -33,6 +28,7 @@ const CreateShelf: NextPage = () => {
   const createShelf = trpc.shelves.create.useMutation({
     onSuccess: () => {
       router.push("/shelves");
+      toast.success("Shelf created successfully");
     },
   });
 
@@ -46,6 +42,12 @@ const CreateShelf: NextPage = () => {
 
   const preventScroll = (event: React.WheelEvent<HTMLInputElement>) => {
     event.currentTarget.blur();
+  };
+
+  const preventCutCopyPaste = (
+    event: React.ClipboardEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
   };
 
   return (
@@ -75,6 +77,7 @@ const CreateShelf: NextPage = () => {
                 placeholder="Name"
                 maxLength={20}
                 disabled={createShelf.isLoading}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
@@ -90,6 +93,10 @@ const CreateShelf: NextPage = () => {
                 onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 disabled={createShelf.isLoading}
+                onChange={(e) => setWeightCapacity(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>
@@ -106,6 +113,10 @@ const CreateShelf: NextPage = () => {
                 onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 disabled={createShelf.isLoading}
+                onChange={(e) => setWidth(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>
@@ -121,6 +132,10 @@ const CreateShelf: NextPage = () => {
                 onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 disabled={createShelf.isLoading}
+                onChange={(e) => setHeight(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>
@@ -136,6 +151,10 @@ const CreateShelf: NextPage = () => {
                 onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
                 disabled={createShelf.isLoading}
+                onChange={(e) => setDepth(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>

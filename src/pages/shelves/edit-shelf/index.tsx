@@ -1,27 +1,23 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { trpc } from "utils/trpc";
 
 const EditShelf: NextPage = () => {
   const router = useRouter();
 
+  const [name, setName] = useState(router.query.name as string);
+  const [width, setWidth] = useState(Number(router.query.width));
+  const [height, setHeight] = useState(Number(router.query.height));
+  const [depth, setDepth] = useState(Number(router.query.depth));
+  const [weight_capacity, setWeightCapacity] = useState(
+    Number(router.query.weight_capacity)
+  );
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const target = event.target as typeof event.target & {
-      name: { value: string };
-      width: { value: number };
-      height: { value: number };
-      depth: { value: number };
-      weight_capacity: { value: number };
-    };
-
-    const name = target.name.value;
-    const width = Number(target.width.value);
-    const height = Number(target.height.value);
-    const depth = Number(target.depth.value);
-    const weight_capacity = Number(target.weight_capacity.value);
 
     editShelf.mutate({
       id: Number(router.query.id),
@@ -36,6 +32,7 @@ const EditShelf: NextPage = () => {
   const editShelf = trpc.shelves.edit.useMutation({
     onSuccess: () => {
       router.push("/shelves");
+      toast.success("Shelf edited successfully");
     },
   });
 
@@ -49,6 +46,12 @@ const EditShelf: NextPage = () => {
 
   const preventScroll = (event: React.WheelEvent<HTMLInputElement>) => {
     event.currentTarget.blur();
+  };
+
+  const preventCutCopyPaste = (
+    event: React.ClipboardEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
   };
 
   return (
@@ -79,6 +82,7 @@ const EditShelf: NextPage = () => {
                 maxLength={20}
                 defaultValue={router.query.name}
                 disabled={editShelf.isLoading}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
@@ -95,6 +99,10 @@ const EditShelf: NextPage = () => {
                 onWheel={preventScroll}
                 defaultValue={router.query.weight_capacity}
                 disabled={editShelf.isLoading}
+                onChange={(e) => setWeightCapacity(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>
@@ -112,6 +120,10 @@ const EditShelf: NextPage = () => {
                 onWheel={preventScroll}
                 defaultValue={router.query.width}
                 disabled={editShelf.isLoading}
+                onChange={(e) => setWidth(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>
@@ -128,6 +140,10 @@ const EditShelf: NextPage = () => {
                 onWheel={preventScroll}
                 defaultValue={router.query.height}
                 disabled={editShelf.isLoading}
+                onChange={(e) => setHeight(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>
@@ -144,6 +160,10 @@ const EditShelf: NextPage = () => {
                 onWheel={preventScroll}
                 defaultValue={router.query.depth}
                 disabled={editShelf.isLoading}
+                onChange={(e) => setDepth(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
                 required
               />
             </div>

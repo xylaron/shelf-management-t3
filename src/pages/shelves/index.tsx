@@ -4,6 +4,7 @@ import router from "next/router";
 import { type Shelves } from "@prisma/client";
 import { trpc } from "utils/trpc";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Shelves: NextPage = () => {
   const shelves = trpc.shelves.getAll.useQuery(undefined, {
@@ -19,6 +20,7 @@ const Shelves: NextPage = () => {
   const deleteShelf = trpc.shelves.delete.useMutation({
     onSuccess: () => {
       void shelves.refetch();
+      toast.success("Shelf deleted successfully");
     },
   });
 
