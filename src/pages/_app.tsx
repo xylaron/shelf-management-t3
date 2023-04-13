@@ -5,6 +5,7 @@ import "styles/globals.css";
 import Navbar from "components/Navbar";
 import { useState } from "react";
 import Login from "components/Login";
+import { Toaster } from "react-hot-toast";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,6 +20,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       </Head>
       {isAuthenticated ? (
         <div>
+          <Toaster />
           <Navbar />
           <Component {...pageProps} />
         </div>
