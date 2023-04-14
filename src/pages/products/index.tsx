@@ -3,8 +3,11 @@ import { trpc } from "utils/trpc";
 import { type Products } from "@prisma/client";
 import Head from "next/head";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Products: NextPage = () => {
+  const router = useRouter();
+
   const [productsList, setProductsList] = useState<Products[]>([]);
   const products = trpc.products.getAll.useQuery(undefined, {
     onSuccess: (data) => {
@@ -23,6 +26,15 @@ const Products: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-12 py-2">
+          <button
+            className="rounded bg-purple-700 py-2 px-4 font-bold transition-colors hover:bg-purple-800 focus:outline-none active:bg-purple-900"
+            type="button"
+            onClick={() => {
+              router.push("/products/sales");
+            }}
+          >
+            Past Month Sales
+          </button>
           {products.isLoading ? (
             <div className="text-xl">Loading...</div>
           ) : products.isError ? (
@@ -38,7 +50,7 @@ const Products: NextPage = () => {
 
 const Table: React.FC<{ productsList: Products[] }> = ({ productsList }) => {
   if (productsList.length === 0) {
-    return <div className="text-xl">No Products Found</div>;
+    return <div className="text-xl">Loading...</div>;
   }
 
   const table = productsList.map((product) => {
