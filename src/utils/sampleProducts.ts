@@ -10,6 +10,7 @@ export interface SampleProduct {
 
 export const sampleProducts = [
   {
+    id: 1,
     name: "Bonaqua",
     type: "Bottled Water",
     width: 6.35,
@@ -19,6 +20,7 @@ export const sampleProducts = [
     price: 8.0,
   },
   {
+    id: 2,
     name: "Coca-Cola",
     type: "Soft Drink",
     width: 6.6,
@@ -28,6 +30,7 @@ export const sampleProducts = [
     price: 7.0,
   },
   {
+    id: 3,
     name: "Red Bull",
     type: "Energy Drink",
     width: 5.72,
@@ -37,6 +40,7 @@ export const sampleProducts = [
     price: 15.0,
   },
   {
+    id: 4,
     name: "Minute Maid Orange Juice",
     type: "Fruit Juice",
     width: 6.35,
@@ -46,6 +50,7 @@ export const sampleProducts = [
     price: 7.0,
   },
   {
+    id: 5,
     name: "Lucozade",
     type: "Sports Drink",
     width: 6.35,
@@ -55,6 +60,7 @@ export const sampleProducts = [
     price: 15.0,
   },
   {
+    id: 6,
     name: "Sprite",
     type: "Soft Drink",
     width: 6.6,
@@ -64,6 +70,7 @@ export const sampleProducts = [
     price: 7.0,
   },
   {
+    id: 7,
     name: "Budweiser",
     type: "Beer",
     width: 6.6,
