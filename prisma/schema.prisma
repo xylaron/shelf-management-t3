@@ -44,6 +44,8 @@ model Shelves {
   height          Float
   depth           Float
   weight_capacity Float
+  cubbyhole_count Int
+  divider_height  Float
   created_at      DateTime @default(now())
   updated_at      DateTime @updatedAt
 }
