@@ -13,6 +13,8 @@ const CreateShelf: NextPage = () => {
   const [height, setHeight] = useState(0);
   const [depth, setDepth] = useState(0);
   const [weight_capacity, setWeightCapacity] = useState(0);
+  const [cubbyhole_count, setCubbyholeCount] = useState(0);
+  const [divider_height, setDividerHeight] = useState(0);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,6 +24,8 @@ const CreateShelf: NextPage = () => {
       height: height,
       depth: depth,
       weight_capacity: weight_capacity,
+      cubbyhole_count: cubbyhole_count,
+      divider_height: divider_height,
     });
   };
 
@@ -158,6 +162,45 @@ const CreateShelf: NextPage = () => {
                 required
               />
             </div>
+            <div className="mb-4">
+              <label className="mb-2 block font-bold" htmlFor="depth">
+                Cubbyhole Count
+              </label>
+              <input
+                className="w-full rounded  bg-neutral-700 py-2 px-3"
+                id="depth"
+                type="number"
+                placeholder="Cubbyhole Count"
+                onKeyDown={preventNonNumberInput}
+                onWheel={preventScroll}
+                disabled={createShelf.isLoading}
+                onChange={(e) => setCubbyholeCount(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="mb-2 block font-bold" htmlFor="depth">
+                Divider Height {"(cm)"}
+              </label>
+              <input
+                className="w-full rounded  bg-neutral-700 py-2 px-3"
+                id="depth"
+                type="number"
+                placeholder="Divider Height"
+                onKeyDown={preventNonNumberInput}
+                onWheel={preventScroll}
+                disabled={createShelf.isLoading}
+                onChange={(e) => setDividerHeight(Number(e.target.value))}
+                onCut={preventCutCopyPaste}
+                onCopy={preventCutCopyPaste}
+                onPaste={preventCutCopyPaste}
+                required
+              />
+            </div>
+            <div></div>
             <div>
               <button
                 className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 active:bg-green-800 disabled:bg-green-800"

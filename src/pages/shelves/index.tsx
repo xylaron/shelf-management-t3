@@ -43,6 +43,10 @@ const Shelves: NextPage = () => {
         depth: shelvesList.find((shelves) => shelves.id == queryId)?.depth,
         weight_capacity: shelvesList.find((shelves) => shelves.id == queryId)
           ?.weight_capacity,
+        cubbyhole_count: shelvesList.find((shelves) => shelves.id == queryId)
+          ?.cubbyhole_count,
+        divider_height: shelvesList.find((shelves) => shelves.id == queryId)
+          ?.divider_height,
       },
     });
   };
@@ -131,6 +135,8 @@ const Table: React.FC<{
           {shelves.width}cm x {shelves.height}cm x {shelves.depth}cm
         </td>
         <td>{shelves.weight_capacity}kg</td>
+        <td>{shelves.cubbyhole_count}</td>
+        <td>{shelves.divider_height}cm</td>
         <td>
           {shelves.created_at.toLocaleString("en-UK", {
             timeZone: "Asia/Hong_Kong",
@@ -165,6 +171,8 @@ const Table: React.FC<{
         <th>Name</th>
         <th>Dimensions</th>
         <th>Weight Capacity</th>
+        <th>Cubbyhole Count</th>
+        <th>Divider Height</th>
         <th>Created At</th>
         <th>Last Updated</th>
         <th>Actions</th>
