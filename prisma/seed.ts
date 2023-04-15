@@ -8,18 +8,16 @@ import { sampleProducts } from "utils/sampleProducts";
 async function main() {
   if (process.env.NODE_ENV !== "development") return;
 
-  // Delete Reset the autoincrement counter using raw (differs from db solutions)
-  // This method is for Postgresql ONLY
-  // await prisma.$queryRaw`TRUNCATE Products RESTART IDENTITY;`;
+  await prisma.products.deleteMany();
   await prisma.transactions_Products.deleteMany();
   await prisma.transactions.deleteMany();
 
-  // for (const product of sampleProducts) {
-  //   const item = await prisma.products.create({
-  //     data: product,
-  //   });
-  //   console.log("Added to Products Table: ", item);
-  // }
+  for (const product of sampleProducts) {
+    const item = await prisma.products.create({
+      data: product,
+    });
+    console.log("Added to Products Table: ", item);
+  }
 
   const singleTransactionsOutput = generateSingleTransaction(4400);
   const transactionsOutput = generateTransactions(singleTransactionsOutput);
