@@ -11,6 +11,19 @@ export const shelvesRouter = router({
       ],
     });
   }),
+  getById: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.shelves.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
   create: publicProcedure
     .input(
       z.object({
@@ -19,6 +32,8 @@ export const shelvesRouter = router({
         height: z.number(),
         depth: z.number(),
         weight_capacity: z.number(),
+        cubbyhole_count: z.number(),
+        divider_height: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -29,6 +44,8 @@ export const shelvesRouter = router({
           height: input.height,
           depth: input.depth,
           weight_capacity: input.weight_capacity,
+          cubbyhole_count: input.cubbyhole_count,
+          divider_height: input.divider_height,
         },
       });
     }),
@@ -54,6 +71,8 @@ export const shelvesRouter = router({
         height: z.number(),
         depth: z.number(),
         weight_capacity: z.number(),
+        cubbyhole_count: z.number(),
+        divider_height: z.number(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -67,6 +86,8 @@ export const shelvesRouter = router({
           height: input.height,
           depth: input.depth,
           weight_capacity: input.weight_capacity,
+          cubbyhole_count: input.cubbyhole_count,
+          divider_height: input.divider_height,
         },
       });
     }),
