@@ -1,5 +1,4 @@
 import { router } from "../trpc";
-import { exampleRouter } from "./example";
 import { productsRouter } from "./products";
 import { transactionsRouter } from "./transactions";
 import { shelvesRouter } from "./shelves";
@@ -9,7 +8,6 @@ import { transactionsProductsRouter } from "./transactionsProducts";
 export const appRouter = router({
   products: productsRouter,
   transactions: transactionsRouter,
-  example: exampleRouter,
   shelves: shelvesRouter,
   users: usersRouter,
   transactionsProducts: transactionsProductsRouter,
