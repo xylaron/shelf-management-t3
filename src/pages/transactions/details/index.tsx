@@ -49,7 +49,9 @@ const TransactionDetails: NextPage = () => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center gap-8">
-              <div className="text-2xl">Transaction ID: {router.query.id}</div>
+              <div className="text-2xl font-bold">
+                Transaction ID: {router.query.id}
+              </div>
               <Table
                 productsList={productsList}
                 transactionProductsList={transactionProductsList}
@@ -76,7 +78,7 @@ const Table: React.FC<{
   productsList: Products[];
 }> = ({ transactionProductsList, productsList }) => {
   if (transactionProductsList.length === 0) {
-    return <div className="text-xl">No Products Found</div>;
+    return <div className="text-xl">Loading...</div>;
   }
 
   const table = transactionProductsList.map(
