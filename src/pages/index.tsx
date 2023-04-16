@@ -1,6 +1,5 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import ExampleQuery from "components/ExampleQuery";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +12,9 @@ const Home: NextPage = () => {
           <h1 className="text-6xl font-extrabold text-white">
             <span>Home</span> Page
           </h1>
-          <ExampleQuery />
+          <div className="text-3xl font-bold">
+            Welcome to the Shelf Management App!
+          </div>
         </div>
       </main>
     </>
