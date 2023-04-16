@@ -72,11 +72,12 @@ const Sales: NextPage = () => {
               Error: {transactionsProducts.error.message}
             </div>
           ) : (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col items-center justify-center gap-8">
               <Table productCount={productCount} productList={productList} />
               <button
-                className="rounded bg-purple-700 py-2 px-4 font-bold transition-colors hover:bg-purple-800 focus:outline-none active:bg-purple-900"
+                className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 focus:outline-none active:bg-red-800"
                 type="submit"
+                hidden={productCount.length === 0}
                 onClick={() => {
                   router.push("/products");
                 }}
