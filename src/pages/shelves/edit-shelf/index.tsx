@@ -186,6 +186,7 @@ const EditShelf: NextPage = () => {
                 placeholder="Cubbyhole Count"
                 onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
+                defaultValue={router.query.cubbyhole_count}
                 disabled={editShelf.isLoading}
                 onChange={(e) => setCubbyholeCount(Number(e.target.value))}
                 onCut={preventCutCopyPaste}
@@ -205,6 +206,7 @@ const EditShelf: NextPage = () => {
                 placeholder="Divider Height"
                 onKeyDown={preventNonNumberInput}
                 onWheel={preventScroll}
+                defaultValue={router.query.divider_height}
                 disabled={editShelf.isLoading}
                 onChange={(e) => setDividerHeight(Number(e.target.value))}
                 onCut={preventCutCopyPaste}
@@ -226,6 +228,7 @@ const EditShelf: NextPage = () => {
             <div>
               <button
                 className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 active:bg-red-800 disabled:bg-red-800"
+                type="button"
                 onClick={() => router.push("/shelves")}
                 disabled={editShelf.isLoading}
               >
