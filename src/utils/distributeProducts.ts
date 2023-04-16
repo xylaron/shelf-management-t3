@@ -1,5 +1,5 @@
-import { ProductCount, ShelfLayout } from "types/types";
-import { Products, Shelves } from "@prisma/client";
+import type { ProductCount, ShelfLayout } from "types/types";
+import type { Products, Shelves } from "@prisma/client";
 
 interface Cubby {
   index: number;
@@ -122,7 +122,7 @@ export const distributeProductsOnShelf = (
   shelf: Shelves
 ) => {
   //creates an array of cubbies based on the shelf info
-  let cubbies: Cubby[] = [];
+  const cubbies: Cubby[] = [];
   const divider_height_total =
     shelf.divider_height * (shelf.cubbyhole_count - 1 + 2);
   for (let i = 0; i < shelf.cubbyhole_count; i++) {
@@ -140,7 +140,7 @@ export const distributeProductsOnShelf = (
     products: Products[],
     productSalesCount: ProductCount[]
   ): CombinedProductInfo[] => {
-    let output = [] as CombinedProductInfo[];
+    const output = [] as CombinedProductInfo[];
     for (let i = 0; i < products.length; i++) {
       for (let j = 0; j < productSalesCount.length; j++) {
         if (products[i]!.id === productSalesCount[j]!.id) {
@@ -167,8 +167,8 @@ export const distributeProductsOnShelf = (
 
   //distributes the products on the shelf
 
-  let output = {} as ShelfLayout;
-  let logs = [] as Logs[];
+  const output = {} as ShelfLayout;
+  const logs = [] as Logs[];
 
   const getTotalProductRatio = (): number => {
     let total = 0;
@@ -205,7 +205,7 @@ export const distributeProductsOnShelf = (
   };
 
   const getShelfProductCountX = () => {
-    let result: {
+    const result: {
       id: number;
       productWidth: number;
       productCountX: number;
@@ -240,7 +240,8 @@ export const distributeProductsOnShelf = (
     }[]
   ) => {
     console.log("\n\nStarting Split Product Count X To Cubbies");
-    let result = [] as any;
+    //eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const result = [] as any;
     //goes through each cubby
     const check = structuredClone(shelfProductCountX);
     for (let i = 0; i < cubbies.length; i++) {

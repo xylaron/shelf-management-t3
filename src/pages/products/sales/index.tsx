@@ -1,4 +1,4 @@
-import { Products, Transactions_Products } from "@prisma/client";
+import type { Products, Transactions_Products } from "@prisma/client";
 import { type NextPage } from "next";
 import Head from "next/head";
 import router from "next/router";
@@ -65,7 +65,7 @@ const Sales: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-12 py-2">
-          {transactionsProducts.isLoading ? (
+          {transactionsProducts.isLoading || products.isLoading ? (
             <div className="text-xl">Loading...</div>
           ) : transactionsProducts.isError ? (
             <div className="text-xl">

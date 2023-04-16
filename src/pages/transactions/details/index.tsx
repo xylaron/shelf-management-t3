@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "utils/trpc";
-import { Products, type Transactions_Products } from "@prisma/client";
+import type { Products, Transactions_Products } from "@prisma/client";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -29,18 +29,6 @@ const TransactionDetails: NextPage = () => {
     }
   );
 
-  const preventNonNumberInput = (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.code === "Minus" || event.code === "KeyE") {
-      event.preventDefault();
-    }
-  };
-
-  const preventScroll = (event: React.WheelEvent<HTMLInputElement>) => {
-    event.currentTarget.blur();
-  };
-
   return (
     <>
       <Head>
@@ -53,7 +41,7 @@ const TransactionDetails: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col gap-4 pt-8 pb-16">
-          {transactionProducts.isLoading ? (
+          {transactionProducts.isLoading || products.isLoading ? (
             <div className="text-xl">Loading...</div>
           ) : transactionProducts.isError ? (
             <div className="text-xl">

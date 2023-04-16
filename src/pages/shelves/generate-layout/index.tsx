@@ -1,10 +1,10 @@
-import { Products, Shelves, Transactions_Products } from "@prisma/client";
+import type { Products, Shelves, Transactions_Products } from "@prisma/client";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ProductCount, ShelfLayout } from "types/types";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
+import type { ProductCount, ShelfLayout } from "types/types";
 import { trpc } from "utils/trpc";
-import { Logs, distributeProductsOnShelf } from "utils/distributeProducts";
+import { type Logs, distributeProductsOnShelf } from "utils/distributeProducts";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 
@@ -101,7 +101,9 @@ const GenerateLayout: NextPage = () => {
           </h1>
         </div>
         <div className="flex flex-col items-center justify-center gap-12 py-2">
-          {transactionsProducts.isLoading || products.isLoading ? (
+          {transactionsProducts.isLoading ||
+          products.isLoading ||
+          shelfByID.isLoading ? (
             <div className="text-xl">Loading...</div>
           ) : transactionsProducts.isError ? (
             <div className="text-xl">
@@ -236,6 +238,7 @@ const OutputPlanogram: React.FC<OutputPlanogramProps> = ({
               <div className="bg-black px-2"></div>
               {cubby.items.map((item) => (
                 <div
+                  key={item.id}
                   className="border-x border-black px-4 py-8"
                   style={{ backgroundColor: productColors[item.id] }}
                 ></div>
@@ -259,7 +262,7 @@ const OutputPlanogram: React.FC<OutputPlanogramProps> = ({
               (product) => product.id === item.id
             );
             return (
-              <tr>
+              <tr key={item.id}>
                 <td
                   className="px-2 py-2"
                   style={{ backgroundColor: productColors[item.id] }}
@@ -275,10 +278,10 @@ const OutputPlanogram: React.FC<OutputPlanogramProps> = ({
       <div>
         {shelfLayoutLogs.length !== 0 && (
           <div className="font-bold text-black">
-            {shelfLayoutLogs.map((log) => {
+            {shelfLayoutLogs.map((log, index) => {
               if (log.type === "INFO") {
                 return (
-                  <div className="bg-neutral-200 p-4">
+                  <div className="bg-neutral-200 p-4" key={index}>
                     {log.type} - {log.message}
                   </div>
                 );
@@ -290,10 +293,10 @@ const OutputPlanogram: React.FC<OutputPlanogramProps> = ({
       <div>
         {shelfLayoutLogs.length !== 0 && (
           <div className="font-bold text-black">
-            {shelfLayoutLogs.map((log) => {
+            {shelfLayoutLogs.map((log, index) => {
               if (log.type === "WARNING") {
                 return (
-                  <div className="bg-yellow-500 p-4">
+                  <div className="bg-yellow-500 p-4" key={index}>
                     {log.type} - {log.message}
                   </div>
                 );
