@@ -3,8 +3,11 @@ import Head from "next/head";
 import { trpc } from "utils/trpc";
 import { type Transactions } from "@prisma/client";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const Transactions: NextPage = () => {
+  const router = useRouter();
+
   const [selectedPage, setSelectedPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [transactionsList, setTransactionsList] = useState<Transactions[]>([]);
@@ -92,13 +95,24 @@ const Transactions: NextPage = () => {
 const Table: React.FC<{ transactionsList: Transactions[] }> = ({
   transactionsList,
 }) => {
+  const router = useRouter();
   if (transactionsList.length === 0) {
-    return <div className="text-xl">No Products Found</div>;
+    return <div className="text-xl">Loading...</div>;
   }
 
   const table = transactionsList.map(({ id, total_price, time }) => {
     return (
-      <tr key={id}>
+      <tr
+        key={id}
+        onClick={() => {
+          router.push({
+            pathname: "/transactions/details",
+            query: {
+              id: id,
+            },
+          });
+        }}
+      >
         <td>{id}</td>
         <td>{total_price}</td>
         <td>
