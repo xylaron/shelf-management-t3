@@ -1,39 +1,6 @@
-interface ProductSalesCountInput {
-  id: number;
-  count: number;
-}
+import { ProductCount, ShelfLayout } from "types/types";
+import { Products, Shelves } from "@prisma/client";
 
-interface ProductsInput {
-  id: number;
-  name: string;
-  width: number;
-  height: number;
-  depth: number;
-  price: number;
-  volume: number;
-  type: string;
-}
-
-interface ShelvesInput {
-  id: number;
-  name: string;
-  width: number;
-  height: number;
-  depth: number;
-  weight_capacity: number;
-  cubbyhole_count: number;
-  divider_height: number;
-}
-
-interface ShelfLayoutOutput {
-  shelfId: number;
-  cubby: {
-    items: {
-      productId: number;
-      depthCount: number;
-    }[];
-  }[];
-}
 interface Cubby {
   index: number;
   width: number;
@@ -51,8 +18,8 @@ interface CombinedProductInfo {
   count: number;
 }
 
-interface Logs {
-  type: "WARNING" | "ERROR";
+export interface Logs {
+  type: "WARNING" | "INFO";
   message: string;
 }
 
@@ -86,7 +53,7 @@ const exampleLayoutOutput = {
   ],
 };
 
-const productSalesCount: ProductSalesCountInput[] = [
+const productSalesCount: ProductCount[] = [
   {
     id: 1,
     count: 25,
@@ -101,7 +68,7 @@ const productSalesCount: ProductSalesCountInput[] = [
   },
 ];
 
-const products: ProductsInput[] = [
+const products: Products[] = [
   {
     id: 1,
     name: "Bonaqua",
@@ -134,7 +101,7 @@ const products: ProductsInput[] = [
   },
 ];
 
-const shelf: ShelvesInput = {
+const shelf: Shelves = {
   id: 1,
   name: "Home Shelf",
   width: 56,
@@ -143,14 +110,16 @@ const shelf: ShelvesInput = {
   weight_capacity: 100,
   cubbyhole_count: 3,
   divider_height: 1,
+  created_at: new Date(),
+  updated_at: new Date(),
 };
 
 /*========================================================================*/
 
-const distributeProductsOnShelf = (
-  productSalesCount: ProductSalesCountInput[],
-  products: ProductsInput[],
-  shelf: ShelvesInput
+export const distributeProductsOnShelf = (
+  productSalesCount: ProductCount[],
+  products: Products[],
+  shelf: Shelves
 ) => {
   //creates an array of cubbies based on the shelf info
   let cubbies: Cubby[] = [];
@@ -168,8 +137,8 @@ const distributeProductsOnShelf = (
 
   //combines the product info with the sales count and sorts it by sales count
   const combineSortProductInfo = (
-    products: ProductsInput[],
-    productSalesCount: ProductSalesCountInput[]
+    products: Products[],
+    productSalesCount: ProductCount[]
   ): CombinedProductInfo[] => {
     let output = [] as CombinedProductInfo[];
     for (let i = 0; i < products.length; i++) {
@@ -198,7 +167,7 @@ const distributeProductsOnShelf = (
 
   //distributes the products on the shelf
 
-  let output = {} as ShelfLayoutOutput;
+  let output = {} as ShelfLayout;
   let logs = [] as Logs[];
 
   const getTotalProductRatio = (): number => {
@@ -311,6 +280,14 @@ const distributeProductsOnShelf = (
           console.log("currentResult: ", result[i]!.items);
         }
       }
+      if (currentCubbyWidth > 0) {
+        logs.push({
+          type: "INFO",
+          message: `Cubby ${cubby.index} has ${currentCubbyWidth.toFixed(
+            2
+          )}cm of horizontal unused space.`,
+        });
+      }
     }
 
     //reverse the order for cubbies with even index for better visual
@@ -322,7 +299,10 @@ const distributeProductsOnShelf = (
 
     //check if there are any products that are not displayed
     for (let i = 0; i < check.length; i++) {
-      if (check[i]!.productCountX > 0) {
+      if (
+        check[i]!.productCountX > 0 &&
+        shelfProductCountX[i]!.productCountX === 1
+      ) {
         logs.push({
           type: "WARNING",
           message: `Product "${

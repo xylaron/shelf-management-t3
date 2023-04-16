@@ -149,16 +149,29 @@ const Table: React.FC<{
         </td>
         <td>
           <button
-            className="mr-1 rounded bg-blue-600 py-2 px-4 font-bold transition-colors hover:bg-blue-700 focus:outline-none active:bg-blue-800"
+            className="mx-1 rounded bg-blue-600 py-2 px-4 font-bold transition-colors hover:bg-blue-700 focus:outline-none active:bg-blue-800"
             onClick={() => handleEdit(shelvesList, shelves.id)}
           >
             Edit
           </button>
           <button
-            className="ml-1 rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 focus:outline-none active:bg-red-800"
+            className="mx-1 rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 focus:outline-none active:bg-red-800"
             onClick={() => handleDelete(shelves.id)}
           >
             Delete
+          </button>
+          <button
+            className="mx-1 rounded bg-yellow-600 py-2 px-4 font-bold transition-colors hover:bg-yellow-700 focus:outline-none active:bg-yellow-800"
+            onClick={() => {
+              router.push({
+                pathname: "/shelves/generate-layout",
+                query: {
+                  id: shelves.id,
+                },
+              });
+            }}
+          >
+            Generate Layout
           </button>
         </td>
       </tr>
