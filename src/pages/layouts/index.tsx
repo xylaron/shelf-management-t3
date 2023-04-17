@@ -1,13 +1,10 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import router from "next/router";
-import OutputPlanogram from "components/OutputPlanogram";
-import { Products, type Layouts } from "@prisma/client";
+import { type Layouts } from "@prisma/client";
 import { trpc } from "utils/trpc";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { ShelfLayout } from "types/types";
-import { Logs } from "utils/distributeProducts";
 
 const Layouts: NextPage = () => {
   const layouts = trpc.layouts.getAll.useQuery(undefined, {
@@ -18,16 +15,16 @@ const Layouts: NextPage = () => {
 
   const [layoutsList, setLayoutsList] = useState<Layouts[]>([]);
 
-  const deleteShelf = trpc.layouts.delete.useMutation({
+  const deleteLayout = trpc.layouts.delete.useMutation({
     onSuccess: () => {
       void layouts.refetch();
-      toast.success("Shelf deleted successfully");
+      toast.success("Layout deleted successfully");
     },
   });
 
   const handleDelete = (id: number) => {
     if (confirm("Are you sure you want to delete this layout?")) {
-      deleteShelf.mutate({
+      deleteLayout.mutate({
         id: id,
       });
     }
