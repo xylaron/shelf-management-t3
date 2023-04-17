@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Layouts, Products } from "@prisma/client";
+import { Products } from "@prisma/client";
 import { trpc } from "utils/trpc";
 import { useState } from "react";
 import { ShelfLayout } from "types/types";
