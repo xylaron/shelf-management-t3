@@ -50,6 +50,13 @@ model Shelves {
   updated_at      DateTime @updatedAt
 }
 
+model Layouts {
+  id         Int      @id @default(autoincrement())
+  name       String
+  layout     String
+  created_at DateTime @default(now())
+}
+
 model Users {
   id       Int    @id @default(autoincrement())
   password String
