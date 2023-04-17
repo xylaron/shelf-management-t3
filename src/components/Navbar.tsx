@@ -37,6 +37,14 @@ const Navbar: React.FC = () => {
               Shelves
             </Link>
           </li>
+          <li>
+            <Link
+              href="/layouts"
+              className="px-3 text-center transition-colors  hover:text-white/80 active:text-white/60"
+            >
+              Layouts
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
