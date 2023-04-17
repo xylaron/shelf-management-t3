@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Products } from "@prisma/client";
+import { Products, Shelves } from "@prisma/client";
 import { trpc } from "utils/trpc";
 import { useState } from "react";
 import { ShelfLayout } from "types/types";
@@ -13,8 +13,18 @@ const LayoutsView: NextPage = () => {
 
   const [productList, setProductList] = useState<Products[]>([]);
   const [shelfLayoutOutput, setShelfLayoutOutput] = useState<ShelfLayout>();
+  const [shelf, setShelf] = useState<Shelves>();
   const [shelfLayoutLogs, setShelfLayoutLogs] = useState<Logs[]>([]);
   const [layoutName, setLayoutName] = useState<string>("");
+
+  const shelfByID = trpc.shelves.getById.useQuery(
+    { id: Number(router.query.id) },
+    {
+      onSuccess: (data) => {
+        setShelf(data!);
+      },
+    }
+  );
 
   const layouts = trpc.layouts.getById.useQuery(
     {
@@ -49,7 +59,7 @@ const LayoutsView: NextPage = () => {
         </div>
         <div className="flex flex-col items-center justify-center gap-12 py-2">
           <div className="">
-            {layouts.isLoading && products.isLoading ? (
+            {layouts.isLoading && products.isLoading && shelfByID.isLoading ? (
               <div className="text-xl">Loading...</div>
             ) : layouts.isError ? (
               <div className="text-xl">Error: {layouts.error.message}</div>
@@ -58,6 +68,9 @@ const LayoutsView: NextPage = () => {
                 {shelfLayoutOutput && shelfLayoutLogs && productList && (
                   <div className="flex flex-col items-center justify-center gap-8">
                     <h1 className="text-2xl font-bold">Layout: {layoutName}</h1>
+                    <h1 className="text-2xl font-bold">
+                      Shelf: {shelf?.name || "*Deleted Shelf*"}
+                    </h1>
                     <OutputPlanogram
                       productList={productList}
                       shelfLayoutOutput={shelfLayoutOutput!}
