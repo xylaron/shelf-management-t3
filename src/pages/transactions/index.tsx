@@ -102,23 +102,28 @@ const Table: React.FC<{ transactionsList: Transactions[] }> = ({
 
   const table = transactionsList.map(({ id, total_price, time }) => {
     return (
-      <tr
-        key={id}
-        onClick={() => {
-          router.push({
-            pathname: "/transactions/details",
-            query: {
-              id: id,
-            },
-          });
-        }}
-      >
+      <tr key={id}>
         <td>{id}</td>
         <td>{total_price}</td>
         <td>
           {time.toLocaleString("en-UK", {
             timeZone: "Asia/Hong_Kong",
           })}
+        </td>
+        <td>
+          <button
+            className="mx-1 rounded bg-blue-600 py-2 px-4 font-bold transition-colors hover:bg-blue-700 focus:outline-none active:bg-blue-800"
+            onClick={() => {
+              router.push({
+                pathname: "/transactions/details",
+                query: {
+                  id: id,
+                },
+              });
+            }}
+          >
+            View
+          </button>
         </td>
       </tr>
     );
@@ -130,6 +135,7 @@ const Table: React.FC<{ transactionsList: Transactions[] }> = ({
         <th>ID</th>
         <th>Total Price</th>
         <th>Time</th>
+        <th>Actions</th>
       </thead>
       <tbody>{table}</tbody>
     </table>
