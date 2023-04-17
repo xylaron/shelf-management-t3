@@ -7,6 +7,7 @@ import { trpc } from "utils/trpc";
 import { type Logs, distributeProductsOnShelf } from "utils/distributeProducts";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import OutputPlanogram from "components/OutputPlanogram";
 
 const GenerateLayout: NextPage = () => {
   const router = useRouter();
@@ -18,10 +19,15 @@ const GenerateLayout: NextPage = () => {
   const [productCount, setProductCount] = useState<ProductCount[]>([]);
   const [shelf, setShelf] = useState<Shelves>();
   const [shelfLayoutOutput, setShelfLayoutOutput] = useState<ShelfLayout>();
+  const [fullShelfLayout, setFullShelfLayout] = useState<{
+    output: ShelfLayout;
+    logs: Logs[];
+  }>();
   const [shelfLayoutLogs, setShelfLayoutLogs] = useState<Logs[]>([]);
 
   //user input states
   const [selectedProducts, setSelectedProducts] = useState<Products[]>([]);
+  const [name, setName] = useState("");
 
   //UI states
   const [isResultOpen, setIsResultOpen] = useState(false);
@@ -49,6 +55,81 @@ const GenerateLayout: NextPage = () => {
       },
     }
   );
+
+  const handleSubmit = () => {
+    if (name.length === 0) {
+      toast.error("Please enter a name for the layout!");
+      return;
+    }
+    createLayout.mutate({
+      name: name,
+      layout: JSON.stringify(fullShelfLayout),
+    });
+  };
+
+  const handleGenerateLayout = () => {
+    const maxDimensions = selectedProducts.reduce(
+      (acc, curr) => {
+        if (curr.width > acc.width) {
+          acc.width = curr.width;
+        }
+        if (curr.height > acc.height) {
+          acc.height = curr.height;
+        }
+        if (curr.depth > acc.depth) {
+          acc.depth = curr.depth;
+        }
+        if (curr.volume > acc.volume) {
+          acc.volume = curr.volume;
+        }
+        return acc;
+      },
+      { width: 0, height: 0, depth: 0, volume: 0 }
+    );
+    if (
+      maxDimensions.width > shelf!.width ||
+      maxDimensions.depth > shelf!.depth
+    ) {
+      toast.error(
+        `Product is too large\n(Max Width/Depth: ${shelf!.width}/${
+          shelf!.depth
+        }cm)`
+      );
+      return;
+    }
+    if (maxDimensions.height > shelf!.height / shelf!.cubbyhole_count) {
+      toast.error(
+        `Product is too tall\n(Max: ${
+          shelf!.height / shelf!.cubbyhole_count
+        }cm)`
+      );
+      return;
+    }
+    if (maxDimensions.volume / 1000 > shelf!.weight_capacity) {
+      toast.error(`Product is too heavy\n(Max: ${shelf!.weight_capacity}kg)`);
+      return;
+    }
+    if (selectedProducts.length === 0) {
+      toast.error("Please select at least one product.");
+      return;
+    }
+
+    console.log("Max Dimensions:", maxDimensions);
+
+    const shelfLayout = getShelfLayout();
+    setShelfLayoutOutput(shelfLayout.output);
+    setShelfLayoutLogs(shelfLayout.logs);
+    setFullShelfLayout(shelfLayout);
+    setIsResultOpen(true);
+    toast.success("Layout generated successfully!");
+  };
+
+  const createLayout = trpc.layouts.create.useMutation({
+    onSuccess: () => {
+      toast.success("Layout saved successfully!");
+      router.push("/layouts");
+    },
+  });
 
   useEffect(() => {
     console.log("Product Id Count:", getProductCount(transactionsProductsList));
@@ -112,13 +193,41 @@ const GenerateLayout: NextPage = () => {
           ) : (
             <div className="flex flex-col items-center justify-center gap-12 py-2">
               {isResultOpen ? (
-                <OutputPlanogram
-                  productList={productList}
-                  shelfLayoutOutput={shelfLayoutOutput!}
-                  shelfLayoutLogs={shelfLayoutLogs}
-                  setIsResultOpen={setIsResultOpen}
-                  setSelectedProducts={setSelectedProducts}
-                />
+                <div className="flex flex-col items-center justify-center gap-12">
+                  <OutputPlanogram
+                    productList={productList}
+                    shelfLayoutOutput={shelfLayoutOutput!}
+                    shelfLayoutLogs={shelfLayoutLogs}
+                  />
+                  <div className="flex flex-row items-center justify-center gap-4">
+                    <input
+                      className="w-full rounded  bg-neutral-700 py-2 px-3"
+                      id="name"
+                      type="text"
+                      placeholder="New Layout Name..."
+                      maxLength={20}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                    <button
+                      className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 focus:outline-none active:bg-green-800"
+                      type="button"
+                      onClick={handleSubmit}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 focus:outline-none active:bg-red-800"
+                      type="button"
+                      onClick={() => {
+                        setIsResultOpen(false);
+                        setSelectedProducts([]);
+                      }}
+                    >
+                      Back
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <div className="flex flex-col items-center justify-center gap-12 py-2">
                   <ShelfTable shelf={shelf!} />
@@ -139,16 +248,7 @@ const GenerateLayout: NextPage = () => {
                       className="rounded bg-green-600 py-2 px-4 font-bold transition-colors hover:bg-green-700 focus:outline-none active:bg-green-800"
                       type="button"
                       hidden={shelf === undefined}
-                      onClick={() => {
-                        if (selectedProducts.length === 0) {
-                          toast.error("Please select at least one product.");
-                          return;
-                        }
-                        const shelfLayout = getShelfLayout();
-                        setShelfLayoutOutput(shelfLayout.output);
-                        setShelfLayoutLogs(shelfLayout.logs);
-                        setIsResultOpen(true);
-                      }}
+                      onClick={handleGenerateLayout}
                     >
                       Generate Layout
                     </button>
@@ -180,142 +280,6 @@ const GenerateLayout: NextPage = () => {
         </div>
       </main>
     </>
-  );
-};
-
-interface OutputPlanogramProps {
-  productList: Products[];
-  shelfLayoutOutput: ShelfLayout;
-  shelfLayoutLogs: Logs[];
-  setIsResultOpen: Dispatch<SetStateAction<boolean>>;
-  setSelectedProducts: Dispatch<SetStateAction<Products[]>>;
-}
-
-const OutputPlanogram: React.FC<OutputPlanogramProps> = ({
-  productList,
-  shelfLayoutOutput,
-  shelfLayoutLogs,
-  setIsResultOpen,
-  setSelectedProducts,
-}) => {
-  interface Item {
-    id: number;
-    depthCount: number;
-  }
-  const itemsList = shelfLayoutOutput.cubby.reduce((acc, curr) => {
-    return [...acc, ...curr.items];
-  }, [] as Item[]);
-
-  const uniqueItemsList = itemsList
-    .filter(
-      (item, index) => itemsList.findIndex((i) => i.id === item.id) === index
-    )
-    .sort((a, b) => a.id - b.id);
-
-  const getRandomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
-
-  const productColors = uniqueItemsList.reduce((acc, curr) => {
-    acc[curr.id] = getRandomColor();
-    return acc;
-  }, {} as Record<number, string>);
-
-  //split the logs into 2 different arrays
-
-  return (
-    <div className="flex w-full flex-col items-center justify-center gap-12">
-      <div>
-        {shelfLayoutOutput.cubby.map((cubby, index) => (
-          <div key={index} className="flex flex-col">
-            <div className="bg-black px-4 py-2"></div>
-            <div className="flex justify-center bg-black">
-              <div className="bg-black px-2"></div>
-              {cubby.items.map((item) => (
-                <div
-                  key={item.id}
-                  className="border-x border-black px-4 py-8"
-                  style={{ backgroundColor: productColors[item.id] }}
-                ></div>
-              ))}
-              <div className="bg-black px-2"></div>
-            </div>
-          </div>
-        ))}
-        <div className="bg-black px-4 py-2"></div>
-      </div>
-      <div className="flex flex-col items-center justify-center gap-4">
-        <table>
-          <tr>
-            <th className="px-4 py-2"></th>
-            <th className="px-4 py-2">Product ID</th>
-            <th className="px-4 py-2">Product Name</th>
-            <th className="px-4 py-2">Depth Count</th>
-          </tr>
-          {uniqueItemsList.map((item) => {
-            const product = productList.find(
-              (product) => product.id === item.id
-            );
-            return (
-              <tr key={item.id}>
-                <td
-                  className="px-2 py-2"
-                  style={{ backgroundColor: productColors[item.id] }}
-                ></td>
-                <td className="px-4 py-2">{item.id}</td>
-                <td className="px-4 py-2">{product?.name}</td>
-                <td className="px-4 py-2">{item.depthCount}</td>
-              </tr>
-            );
-          })}
-        </table>
-      </div>
-      <div>
-        {shelfLayoutLogs.length !== 0 && (
-          <div className="font-bold text-black">
-            {shelfLayoutLogs.map((log, index) => {
-              if (log.type === "INFO") {
-                return (
-                  <div className="bg-neutral-200 p-4" key={index}>
-                    {log.type} - {log.message}
-                  </div>
-                );
-              }
-            })}
-          </div>
-        )}
-      </div>
-      <div>
-        {shelfLayoutLogs.length !== 0 && (
-          <div className="font-bold text-black">
-            {shelfLayoutLogs.map((log, index) => {
-              if (log.type === "WARNING") {
-                return (
-                  <div className="bg-yellow-500 p-4" key={index}>
-                    {log.type} - {log.message}
-                  </div>
-                );
-              }
-            })}
-          </div>
-        )}
-      </div>
-      <button
-        className="rounded bg-red-600 py-2 px-4 font-bold transition-colors hover:bg-red-700 focus:outline-none active:bg-red-800"
-        type="button"
-        onClick={() => {
-          setIsResultOpen(false);
-          setSelectedProducts([]);
-        }}
-      >
-        Back
-      </button>
-    </div>
   );
 };
 
