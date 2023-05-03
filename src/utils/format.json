@@ -1,0 +1,43 @@
+{
+  "output": {
+    "shelfId": 1,
+    "cubby": [
+      {
+        "index": 1,
+        "items": [
+          { "id": 1, "depthCount": 4 },
+          { "id": 1, "depthCount": 4 },
+          { "id": 1, "depthCount": 4 },
+          { "id": 1, "depthCount": 4 },
+          { "id": 1, "depthCount": 4 },
+          { "id": 1, "depthCount": 4 },
+          { "id": 2, "depthCount": 4 },
+          { "id": 2, "depthCount": 4 }
+        ]
+      },
+      {
+        "index": 2,
+        "items": [
+          { "id": 3, "depthCount": 5 },
+          { "id": 3, "depthCount": 5 },
+          { "id": 3, "depthCount": 5 },
+          { "id": 3, "depthCount": 5 },
+          { "id": 3, "depthCount": 5 },
+          { "id": 2, "depthCount": 4 },
+          { "id": 2, "depthCount": 4 },
+          { "id": 2, "depthCount": 4 }
+        ]
+      }
+    ]
+  },
+  "logs": [
+    {
+      "type": "INFO",
+      "message": "Cubby 1 has 4.70cm of horizontal unused space."
+    },
+    {
+      "type": "INFO",
+      "message": "Cubby 2 has 7.60cm of horizontal unused space."
+    }
+  ]
+}
