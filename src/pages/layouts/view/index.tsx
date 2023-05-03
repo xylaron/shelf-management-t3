@@ -18,7 +18,7 @@ const LayoutsView: NextPage = () => {
   const [layoutName, setLayoutName] = useState<string>("");
 
   const shelfByID = trpc.shelves.getById.useQuery(
-    { id: Number(router.query.id) },
+    { id: shelfLayoutOutput!.shelfId },
     {
       onSuccess: (data) => {
         setShelf(data!);
